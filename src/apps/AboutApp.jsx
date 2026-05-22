@@ -2,7 +2,7 @@ import React from 'react';
 import { I } from '../IconSet.jsx';
 import { BIO, INITIALS, BRAND, FULL_NAME, ROLE, SP, SBR, PROJECTS } from '../constants.js';
 
-export default function AboutApp() {
+export default function AboutApp({ openApp }) {
   return (
     <div className="ab ab-polished">
       <div className="ab-hero-polished">
@@ -12,7 +12,7 @@ export default function AboutApp() {
           <p className="ab-role">{ROLE}</p>
           <div className="ab-ctas">
             <a className="btn primary" href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer"><I.Resume /> Resume</a>
-            <a className="btn" href="mailto:sarwansai483@gmail.com"><I.Mail /> Contact</a>
+            <a className="btn" href="#contact" onClick={e => { e.preventDefault(); if (openApp) openApp('contact'); else window.location.href = 'mailto:sarwansai483@gmail.com'; }}><I.Mail /> Contact</a>
           </div>
           <div className="ab-socials">
             <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><I.GH /></a>

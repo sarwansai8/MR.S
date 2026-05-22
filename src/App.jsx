@@ -475,7 +475,7 @@ const SHORTCUTS=[
 const DOCK=[{id:'explorer',icon:I.FolderF,label:'Files',color:'#fbbf24'},{id:'browser',icon:I.Globe,label:'Browser',color:'#38bdf8'},{id:'terminal',icon:I.Term,label:'Terminal',color:'#e4e4e8'},{id:'projects',icon:I.Code,label:'Projects',color:'#4a9eff'},{id:'skills',icon:I.Grid,label:'Skills',color:'#e4e4e8'},{id:'contact',icon:I.Mail,label:'Mail',color:'#e4e4e8'},{id:'_sep'},{id:'settings',icon:I.Gear,label:'Settings',color:'#888'},{id:'_grid',icon:I.Grid,label:'Apps',color:'#888'}];
 
 /* ═══════════════ WINDOW ═══════════════ */
-function Win({win,zIndex,isFocused,onClose,onFocus,onMinimize,onSnap}){
+function Win({win,zIndex,isFocused,onClose,onFocus,onMinimize,onSnap,openApp}){
   const[pos,sP]=useState({x:win.x,y:win.y});
   const[size,sS]=useState({w:win.w,h:win.h});
   const[phase,sPh]=useState('opening');
@@ -513,7 +513,7 @@ function Win({win,zIndex,isFocused,onClose,onFocus,onMinimize,onSnap}){
   const cls=['win',phase!=='idle'?phase:'',max&&!snapped?'maximized':'',isFocused?'focused':'',isDragging?'dragging':''].filter(Boolean).join(' ');
   const style=max?{zIndex,transition:'all 300ms cubic-bezier(0.34,1.56,0.64,1)'}:{left:pos.x,top:pos.y,width:size.w,height:size.h,zIndex,borderRadius:snapped?0:undefined,transition:isDragging?'none':'all 300ms cubic-bezier(0.34,1.56,0.64,1)'};
   
-  return<div className={cls} style={style} onMouseDown={onFocus}><div className="tb" onMouseDown={onDrag} onDoubleClick={e=>{if(!e.target.closest('.tb-c'))doMax()}}><div className="tb-c" onMouseDown={e=>e.stopPropagation()} onMouseUp={e=>e.stopPropagation()} onClick={e=>e.stopPropagation()} onDoubleClick={e=>e.stopPropagation()}><button className="tb-b x" onClick={doClose}/><button className="tb-b n" onClick={doMin}/><button className="tb-b z" onClick={doMax}/></div><span className="tb-t">{win.label}</span></div><div className="wb"><Suspense fallback={<div style={{display:'flex',alignItems:'center',justifyContent:'center',padding:'3rem',color:'#555',gap:'0.6rem'}}><div className="spin" style={{width:18,height:18,border:'2px solid rgba(255,255,255,0.08)',borderTopColor:'#555',borderRadius:'50%',animation:'sp 600ms linear infinite'}}/> Loading…</div>}><C /></Suspense></div>{!max&&!snapped&&<div className="win-rs" onMouseDown={onResize}/>}</div>
+  return<div className={cls} style={style} onMouseDown={onFocus}><div className="tb" onMouseDown={onDrag} onDoubleClick={e=>{if(!e.target.closest('.tb-c'))doMax()}}><div className="tb-c" onMouseDown={e=>e.stopPropagation()} onMouseUp={e=>e.stopPropagation()} onClick={e=>e.stopPropagation()} onDoubleClick={e=>e.stopPropagation()}><button className="tb-b x" onClick={doClose}/><button className="tb-b n" onClick={doMin}/><button className="tb-b z" onClick={doMax}/></div><span className="tb-t">{win.label}</span></div><div className="wb"><Suspense fallback={<div style={{display:'flex',alignItems:'center',justifyContent:'center',padding:'3rem',color:'#555',gap:'0.6rem'}}><div className="spin" style={{width:18,height:18,border:'2px solid rgba(255,255,255,0.08)',borderTopColor:'#555',borderRadius:'50%',animation:'sp 600ms linear infinite'}}/> Loading…</div>}><C openApp={openApp} /></Suspense></div>{!max&&!snapped&&<div className="win-rs" onMouseDown={onResize}/>}</div>
 }
 
 /* ═══════════════ MAGNIFIED DOCK ═══════════════ */
@@ -620,7 +620,7 @@ function Desktop(){
     <div className="desktop-area" onContextMenu={onCtx} onClick={()=>sCx(null)} onMouseDown={onDesktopDown}>
       <div className="desktop-icons">{SHORTCUTS.map(s=>{const Ic=s.icon;if(s.type==='link')return<a key={s.id} href={s.href} target="_blank" rel="noopener noreferrer" className="dsc"><div className="dsc-icon" style={{color:s.color}}><Ic /></div><span className="dsc-lbl">{s.label}</span></a>;return<div key={s.id} className="dsc" tabIndex={0} onDoubleClick={()=>openApp(s.id)} onKeyDown={e=>{if(e.key==='Enter')openApp(s.id)}}><div className="dsc-icon" style={{color:s.color}}><Ic /></div><span className="dsc-lbl">{s.label}</span></div>})}</div>
       <div className="widgets-panel"><ClockWidget now={now} /><WeatherWidget /><SysMonWidget /><GithubWidget /><MusicWidget /></div>
-      {wins.map(w=>hidden.has(w.id)?null:<Win key={w.id} win={w} zIndex={w.zIndex} isFocused={focusId===w.id} onClose={()=>closeWin(w.id)} onFocus={()=>focusWin(w.id)} onMinimize={()=>minWin(w.id)} onSnap={sSD}/>)}
+      {wins.map(w=>hidden.has(w.id)?null:<Win key={w.id} win={w} zIndex={w.zIndex} isFocused={focusId===w.id} onClose={()=>closeWin(w.id)} onFocus={()=>focusWin(w.id)} onMinimize={()=>minWin(w.id)} onSnap={sSD} openApp={openApp}/>)}
     </div>
 
     {selRect&&<div className="sel-rect" style={selRect}/>}
