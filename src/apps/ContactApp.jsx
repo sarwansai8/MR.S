@@ -21,12 +21,33 @@ export default function ContactApp() {
     
     if (Object.keys(c).length === 0) {
       sS('loading');
-      setTimeout(() => {
-        sS('ok');
-        sF({ name: '', email: '', msg: '' });
-        if (push) push('System', 'Message sent successfully!');
-        setTimeout(() => sS('idle'), 3000);
-      }, 1500);
+      fetch("https://formsubmit.co/ajax/sarwansai483@gmail.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: f.name,
+          email: f.email,
+          message: f.msg
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          sS('ok');
+          sF({ name: '', email: '', msg: '' });
+          if (push) push('System', 'Message sent successfully!');
+          setTimeout(() => sS('idle'), 4000);
+        } else {
+          throw new Error('Server returned an error');
+        }
+      })
+      .catch(error => {
+        sS('error');
+        sE({ submit: 'Failed to send message. Please email directly or try again.' });
+        if (push) push('System', 'Error transmitting message.');
+      });
     }
   };
   
@@ -56,6 +77,7 @@ export default function ContactApp() {
           {st === 'loading' ? 'Transmitting...' : 'Send Message'}
         </button>
         {st === 'ok' && <div className="ffb ok">Encrypted message delivered to server.</div>}
+        {st === 'error' && <div className="ffb fail">{err.submit || 'Failed to transmit message.'}</div>}
       </form>
     </div>
   );
