@@ -1,9 +1,9 @@
 export const BRAND = 'MR.S';
 export const OS_ID = 'mrs-os';
-export const FULL_NAME = 'Maddipati Sarwansai';
-export const ROLE = 'Cybersecurity Student & Aspiring Professional';
-export const BIO = `I am a final-year cybersecurity student focused on ethical hacking, digital security, and secure solution building. I have a strong interest in penetration testing, malware analysis, IoT security, and AI-driven cybersecurity, alongside full-stack development experience.`;
-export const INITIALS = 'MS';
+export const FULL_NAME = 'Sarwansai Maddipati';
+export const ROLE = 'Software Engineer & Cybersecurity Professional';
+export const BIO = `To leverage my skills in software engineering and cybersecurity to secure a challenging role that protects digital assets and drives innovation. I’m excited to apply my expertise in developing secure software solutions and threat analysis to contribute to a forward-thinking organization.`;
+export const INITIALS = 'SM';
 
 export const ASCII = ` ███╗   ███╗██████╗       ███████╗
  ████╗ ████║██╔══██╗      ██╔════╝
@@ -14,175 +14,110 @@ export const ASCII = ` ███╗   ███╗██████╗       �
 
 export const PROJECTS = [
   { 
-    id: 'p_healthgov', 
-    title: 'Real-Time Cyber Threat Management', 
-    d: 'Enterprise-grade healthcare platform (HealthGov) with 28 security layers (zero-trust, HIPAA-focused). Includes a built-in penetration test simulator, live attack map, and honeypots.', 
-    e: '🛡️', 
-    tags: ['Next.js 15', 'TypeScript', 'MongoDB', 'Cryptography'], 
-    link: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
-    status: 'Complete',
-    highlight: '28 Security Layers (Zero-Trust)',
-    demo: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
-    accentColor: '#3b82f6' // accent blue
-  },
-  { 
-    id: 'p_cybertrap', 
-    title: 'CyberTrapX Honeypot System', 
-    d: 'Advanced multi-layered honeypot system to lure attackers, log malicious activity, and analyze threat behavior for forensics and pattern analysis.', 
-    e: '🪤', 
-    tags: ['Python', 'Flask', 'PowerShell', 'Cybersecurity'], 
-    link: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git',
-    status: 'Complete',
-    highlight: 'Multi-Layered Interactive Honeypot',
-    demo: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git',
-    accentColor: '#f43f5e' // accent rose
-  },
-  { 
-    id: 'p_zerotrace', 
-    title: 'ZeroTrace-Health', 
-    d: 'Decentralized healthcare management system built with Polygon, Hardhat, Supabase, and React. Focused on privacy-first workflows with client-side encryption, on-chain integrity checks, and role-based access control for patients, doctors, and admins.', 
-    e: '🏥', 
-    tags: ['React', 'Polygon', 'Supabase', 'Hardhat'], 
-    link: 'https://github.com/sarwansai8/ZeroTrace-Health.git',
-    status: 'Complete',
-    highlight: 'Blockchain-Based Secure Records',
-    demo: 'https://github.com/sarwansai8/ZeroTrace-Health.git',
-    accentColor: '#10b981' // accent emerald
-  },
-  { 
-    id: 'p_sentinelx', 
-    title: 'SentinelX', 
-    d: 'Real-time multimodal crisis intelligence system for social media credibility scoring. Combines NLP, computer vision, bot detection, and anomaly analysis with a Chrome extension and FastAPI backend.', 
-    e: '🛰️', 
-    tags: ['Python', 'FastAPI', 'MongoDB', 'Chrome Extension'], 
-    link: 'https://github.com/sarwansai8/SentinelX.git',
-    status: 'Active',
-    highlight: 'Multimodal Credibility Scoring Engine',
-    demo: 'https://github.com/sarwansai8/SentinelX.git',
-    accentColor: '#8b5cf6' // accent purple
-  },
-  { 
-    id: 'p_wifi_security', 
-    title: 'Wi‑Fi Security Assessment Tool', 
-    d: 'An educational tool for demonstrating Wi‑Fi security concepts and basic network vulnerability assessment. Includes network discovery guidance, handshake capture walkthroughs, and password strength estimation.', 
-    e: '📶', 
-    tags: ['Python', 'Nmap', 'WPA/WPA2', 'Education'], 
-    link: 'https://github.com/sarwansai8/wifi-security-tool.git',
-    status: 'Complete',
-    highlight: 'Educational Handshake Auditing Tool',
-    demo: 'https://github.com/sarwansai8/wifi-security-tool.git',
-    accentColor: '#fbbf24' // accent amber
-  },
-  { 
-    id: 'p1', 
+    id: 'p_courses', 
     title: 'Courses Platform', 
-    d: 'MERN application with Firebase Auth, role-based access, MongoDB Idea Board, React Router, Redux, and Framer Motion.', 
+    d: 'Built a full-stack MERN application with Firebase Auth, role-based access, and MongoDB-based Idea Board. Designed responsive UI using React Router, Redux, and Framer Motion for smooth user experience.', 
     e: '🌐', 
-    tags: ['React', 'Node.js', 'MongoDB', 'Firebase'], 
+    tags: ['React', 'Node.js', 'MongoDB', 'Firebase Auth', 'Redux', 'Framer Motion'], 
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
     highlight: 'Full-Stack MERN Learning Portal',
-    demo: null,
-    accentColor: '#38bdf8' // accent sky
+    demo: 'https://github.com/sarwansai8',
+    accentColor: '#3b82f6' // accent blue
   },
   { 
-    id: 'p2', 
+    id: 'p_forensicax', 
     title: 'ForensicaX', 
-    d: 'Ethical mobile forensics tool with Android data capture, AES encryption, and Python-based decryption and analysis.', 
+    d: 'Developed a stealth Android app to capture SMS, call logs, contacts, and IP; secured data with AES encryption. Created a Python-based module to decrypt and analyze collected forensic data.', 
     e: '🔍', 
-    tags: ['Python', 'Android', 'Cryptography'], 
+    tags: ['Python', 'Android', 'AES Encryption', 'Mobile Forensics', 'Cryptography'], 
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
-    highlight: 'Mobile Artifact Extraction Tool',
-    demo: null,
-    accentColor: '#e11d48' // accent rose-dark
+    highlight: 'Mobile Artifact Extraction & Analysis Tool',
+    demo: 'https://github.com/sarwansai8',
+    accentColor: '#e11d48' // accent rose
   },
   { 
-    id: 'p3', 
-    title: 'IoT Security IDS', 
-    d: 'IDS for smart devices detecting DoS, spoofing, and brute-force attacks using Python and Wireshark.', 
+    id: 'p_iot_security', 
+    title: 'IoT Security', 
+    d: 'Built an IDS for IoT devices to detect DoS, spoofing, and brute force attacks using Python and Wireshark. Implemented real-time traffic monitoring, attack classification, and alert generation.', 
     e: '🛡️', 
-    tags: ['Python', 'Wireshark', 'IoT Security'], 
+    tags: ['Python', 'Wireshark', 'IoT Security', 'Intrusion Detection System'], 
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
-    highlight: 'Network-Level Smart Device Guardian',
-    demo: null,
+    highlight: 'Network-Level Smart Device Intrusion Detection',
+    demo: 'https://github.com/sarwansai8',
     accentColor: '#22c55e' // accent green
-  },
-  { 
-    id: 'p4', 
-    title: 'Library Management', 
-    d: 'Java and MySQL database project for cataloging, member management, and borrowing workflows.', 
-    e: '📚', 
-    tags: ['Java', 'MySQL', 'Backend'], 
-    link: 'https://github.com/sarwansai8',
-    status: 'Complete',
-    highlight: 'Relational Database Management System',
-    demo: null,
-    accentColor: '#64748b' // accent slate
   }
 ];
 
 export const SP = [
-  { c: 'Languages', i: ['Java', 'Python', 'C', 'JavaScript', 'HTML/CSS'] },
-  { c: 'Frontend', i: ['React', 'Tailwind', 'Shadcn UI', 'Framer Motion'] },
-  { c: 'Backend', i: ['Node.js', 'Firebase', 'REST APIs', 'Spring Boot'] },
-  { c: 'Tools & Security', i: ['Wireshark', 'Nmap', 'Metasploit', 'Burp Suite', 'Git', 'Linux'] }
+  { c: 'Frontend', i: ['React.js', 'HTML', 'CSS', 'Responsive Design'] },
+  { c: 'Backend & Databases', i: ['Node.js', 'Firebase', 'MONGODB'] },
+  { c: 'Languages & Cloud', i: ['Python', 'AWS (S3, EC2 - basic understanding)'] },
+  { c: 'Tools & Security Concepts', i: ['Git', 'VS Code', 'AI AGENTS', 'NMAP', 'WIRESHARK', 'Burp Suite', 'Software Design', 'Problem Solving', 'Threat Modeling', 'Incident Response'] }
 ];
 
 export const SKILL_RATINGS = [
-  { name: 'Java', level: 85, cat: 'Languages' },
-  { name: 'Python', level: 90, cat: 'Languages' },
-  { name: 'C', level: 75, cat: 'Languages' },
-  { name: 'JavaScript', level: 85, cat: 'Languages' },
-  { name: 'HTML/CSS', level: 88, cat: 'Languages' },
+  { name: 'React.js', level: 85, cat: 'Frontend' },
+  { name: 'HTML', level: 90, cat: 'Frontend' },
+  { name: 'CSS', level: 88, cat: 'Frontend' },
+  { name: 'Responsive Design', level: 90, cat: 'Frontend' },
   
-  { name: 'React', level: 85, cat: 'Frontend' },
-  { name: 'Tailwind', level: 90, cat: 'Frontend' },
-  { name: 'Shadcn UI', level: 80, cat: 'Frontend' },
-  { name: 'Framer Motion', level: 78, cat: 'Frontend' },
+  { name: 'Node.js', level: 80, cat: 'Backend & Databases' },
+  { name: 'Firebase', level: 85, cat: 'Backend & Databases' },
+  { name: 'MONGODB', level: 82, cat: 'Backend & Databases' },
   
-  { name: 'Node.js', level: 80, cat: 'Backend' },
-  { name: 'Firebase', level: 82, cat: 'Backend' },
-  { name: 'REST APIs', level: 85, cat: 'Backend' },
-  { name: 'Spring Boot', level: 70, cat: 'Backend' },
+  { name: 'Python', level: 90, cat: 'Languages & Cloud' },
+  { name: 'AWS (S3, EC2)', level: 65, cat: 'Languages & Cloud' },
   
-  { name: 'Wireshark', level: 85, cat: 'Tools & Security' },
-  { name: 'Nmap', level: 88, cat: 'Tools & Security' },
-  { name: 'Metasploit', level: 80, cat: 'Tools & Security' },
-  { name: 'Burp Suite', level: 82, cat: 'Tools & Security' },
-  { name: 'Git', level: 85, cat: 'Tools & Security' },
-  { name: 'Linux', level: 90, cat: 'Tools & Security' }
+  { name: 'Git', level: 85, cat: 'Tools & Security Concepts' },
+  { name: 'VS Code', level: 90, cat: 'Tools & Security Concepts' },
+  { name: 'AI AGENTS', level: 88, cat: 'Tools & Security Concepts' },
+  { name: 'NMAP', level: 85, cat: 'Tools & Security Concepts' },
+  { name: 'WIRESHARK', level: 90, cat: 'Tools & Security Concepts' },
+  { name: 'Burp Suite', level: 80, cat: 'Tools & Security Concepts' },
+  { name: 'Software Design', level: 82, cat: 'Tools & Security Concepts' },
+  { name: 'Problem Solving', level: 88, cat: 'Tools & Security Concepts' },
+  { name: 'Threat Modeling', level: 80, cat: 'Tools & Security Concepts' },
+  { name: 'Incident Response', level: 78, cat: 'Tools & Security Concepts' }
 ];
 
 export const SBR = [
-  { n: 'Cybersecurity', p: 92, desc: 'Penetration Testing, Ethical Hacking & Threat Detection' },
-  { n: 'Full-Stack Dev', p: 85, desc: 'Responsive UIs, Backend APIs & Smart Integrations' },
-  { n: 'Secure Coding', p: 88, desc: 'Cryptography, Cryptographic Keys & Blockchain' }
+  { n: 'Software Engineering', p: 88, desc: 'Responsive Web Apps, Backend APIs & Cloud Resources' },
+  { n: 'Cybersecurity', p: 90, desc: 'Network Traffic Analysis, Penetration Testing & Threat Assessment' },
+  { n: 'Problem Solving', p: 92, desc: 'Algorithm Design, Cryptography & Forensics Log Decryption' }
 ];
 
 export const EDUCATION = [
   {
     year: '2022 - 2026',
-    degree: 'B.Tech in Computer Science & Engineering',
+    degree: 'Bachelor of Technology (B. Tech)',
     institution: 'KL University',
     specialization: 'Specialization in Cybersecurity (GPA: 8.8/10)',
-    details: 'Rigorous course focusing on Secure Software Systems, Penetration Testing, Intrusion Detection, Cryptography, Network Protocols, and Digital Forensics. Led cybersecurity student cluster.'
+    details: 'Rigorous coursework in Computer Science with a core specialization in Cybersecurity, covering Penetration Testing, Incident Response, Cryptography, Secure Software Design, and Threat Modeling.'
   },
   {
     year: '2020 - 2022',
-    degree: 'Intermediate Education (MPC)',
-    institution: 'Narayana Junior College',
-    specialization: 'Physics, Chemistry & Mathematics (96.5%)',
-    details: 'Strengthened core logical, mathematical, and analytical foundation. Excelled in competitive problem solving.'
+    degree: 'Intermediate (IPE)',
+    institution: 'Tirumala Junior College',
+    specialization: 'Physics, Chemistry & Mathematics (MPC)',
+    details: 'Acquired highly analytical problem solving skills and strong foundational engineering competencies.'
+  },
+  {
+    year: '2019 - 2020',
+    degree: 'Secondary School (SSC)',
+    institution: 'Sri Chaitanya College of Education',
+    specialization: 'High School Matriculation',
+    details: 'Exceeded basic logical and secondary school education requirements.'
   }
 ];
 
 export const STATS = [
-  { value: 9, suffix: '+', label: 'Projects Completed' },
-  { value: 3, suffix: '', label: 'Professional Certifications' },
+  { value: 3, suffix: '', label: 'Projects Completed' },
+  { value: 2, suffix: '', label: 'Industry Certifications' },
   { value: 4, suffix: ' Years', label: 'Academic Cyber Experience' },
-  { value: 500, suffix: '+', label: 'GitHub Commits (Past Year)' }
+  { value: 15, suffix: '+', label: 'Technical Skills Mastered' }
 ];
 
 export const BIOS_LINES = [

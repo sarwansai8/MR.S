@@ -58,7 +58,7 @@ export default function SkillsApp() {
     return () => clearTimeout(t);
   }, []);
 
-  const categories = ['all', 'Languages', 'Frontend', 'Backend', 'Tools & Security'];
+  const categories = ['all', 'Frontend', 'Backend & Databases', 'Languages & Cloud', 'Tools & Security Concepts'];
   
   const filteredSkills = activeCategory === 'all' 
     ? SKILL_RATINGS 
@@ -66,10 +66,10 @@ export default function SkillsApp() {
 
   const getCategoryIcon = (cat) => {
     switch (cat) {
-      case 'Languages': return '💻';
+      case 'Languages & Cloud': return '💻';
       case 'Frontend': return '🎨';
-      case 'Backend': return '⚙️';
-      case 'Tools & Security': return '🔒';
+      case 'Backend & Databases': return '⚙️';
+      case 'Tools & Security Concepts': return '🔒';
       default: return '🛠️';
     }
   };

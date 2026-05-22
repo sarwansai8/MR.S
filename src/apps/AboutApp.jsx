@@ -160,14 +160,14 @@ export default function AboutApp({ openApp }) {
             {activeTab === 'credentials' && (
               <div className="tab-pane animate-fade-in">
                 <h3>Industry Credentials</h3>
-                <p className="creds-intro">Verified certificates showing proficiency in cybersecurity frameworks, systems administration, and sales management platforms.</p>
+                <p className="creds-intro">Verified credentials demonstrating professional competency in software development and active cybersecurity practices.</p>
                 
                 <div className="cert-cards-grid">
                   <div className="cert-card-polished">
                     <div className="cert-icon">🛡️</div>
                     <div className="cert-details">
                       <h4>Certified Ethical Hacker (CEH)</h4>
-                      <p>EC-Council professional cyber training & assessment</p>
+                      <p>EC-Council professional cybersecurity training & assessment</p>
                       <a href="https://drive.google.com/file/d/1M5bAEPY4Lrt_dl1njPtj_6VnZZFGbw2v/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn">
                         Verify Credential ↗
                       </a>
@@ -175,24 +175,13 @@ export default function AboutApp({ openApp }) {
                   </div>
 
                   <div className="cert-card-polished">
-                    <div className="cert-icon">☁️</div>
+                    <div className="cert-icon">💻</div>
                     <div className="cert-details">
-                      <h4>Microsoft Azure Fundamentals (AZ-900)</h4>
-                      <p>Cloud systems, core services, and cybersecurity fundamentals</p>
-                      <a href="https://drive.google.com/file/d/1bU_0Gzmdli1JnY5N6tHtQYulBAcUD_LW/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn">
-                        Verify Credential ↗
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="cert-card-polished">
-                    <div className="cert-icon">💼</div>
-                    <div className="cert-details">
-                      <h4>Salesforce Certified Professional</h4>
-                      <p>Cloud management, user controls, and database schemas</p>
-                      <a href="https://drive.google.com/file/d/1f8IzMWfsP5bzANTCcz_UlWCVc4oVjSb-/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn">
-                        Verify Credential ↗
-                      </a>
+                      <h4>Career Essentials in Cybersecurity</h4>
+                      <p>Professional accreditation by Microsoft and LinkedIn</p>
+                      <span className="cert-btn-static">
+                        Verified on Resume
+                      </span>
                     </div>
                   </div>
                 </div>
