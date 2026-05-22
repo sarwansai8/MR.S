@@ -94,7 +94,7 @@ export const EDUCATION = [
     year: '2022 - 2026',
     degree: 'Bachelor of Technology (B. Tech)',
     institution: 'KL University',
-    specialization: 'Specialization in Cybersecurity (GPA: 8.8/10)',
+    specialization: 'Specialization in Cybersecurity (CGPA: 7.80/10)',
     details: 'Rigorous coursework in Computer Science with a core specialization in Cybersecurity, covering Penetration Testing, Incident Response, Cryptography, Secure Software Design, and Threat Modeling.'
   },
   {
