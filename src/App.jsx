@@ -487,6 +487,8 @@ function Win({win,zIndex,isFocused,onClose,onFocus,onMinimize,onSnap}){
   useEffect(()=>{if(phase==='opening'){const t=setTimeout(()=>sPh('idle'),300);return()=>clearTimeout(t)}},[phase]);
   
   const onDrag=e=>{
+    // Skip drag if clicking on window control buttons
+    if(e.target.closest('.tb-c')||e.target.closest('.tb-b'))return;
     if(max||snapped){if(snapped){sSn(null);sS({w:win.w,h:win.h})}if(max){sM(false);if(prev.current)sS({w:prev.current.w,h:prev.current.h})}}
     e.preventDefault();onFocus();sID(true);
     const sx=e.clientX-pos.x,sy=e.clientY-pos.y;
@@ -511,7 +513,7 @@ function Win({win,zIndex,isFocused,onClose,onFocus,onMinimize,onSnap}){
   const cls=['win',phase!=='idle'?phase:'',max&&!snapped?'maximized':'',isFocused?'focused':'',isDragging?'dragging':''].filter(Boolean).join(' ');
   const style=max?{zIndex,transition:'all 300ms cubic-bezier(0.34,1.56,0.64,1)'}:{left:pos.x,top:pos.y,width:size.w,height:size.h,zIndex,borderRadius:snapped?0:undefined,transition:isDragging?'none':'all 300ms cubic-bezier(0.34,1.56,0.64,1)'};
   
-  return<div className={cls} style={style} onMouseDown={onFocus}><div className="tb" onMouseDown={onDrag} onDoubleClick={doMax}><div className="tb-c" onMouseDown={e=>e.stopPropagation()} onMouseUp={e=>e.stopPropagation()} onClick={e=>e.stopPropagation()}><button className="tb-b x" onClick={doClose}/><button className="tb-b n" onClick={doMin}/><button className="tb-b z" onClick={doMax}/></div><span className="tb-t">{win.label}</span></div><div className="wb"><Suspense fallback={<div style={{display:'flex',alignItems:'center',justifyContent:'center',padding:'3rem',color:'#555',gap:'0.6rem'}}><div className="spin" style={{width:18,height:18,border:'2px solid rgba(255,255,255,0.08)',borderTopColor:'#555',borderRadius:'50%',animation:'sp 600ms linear infinite'}}/> Loading…</div>}><C /></Suspense></div>{!max&&!snapped&&<div className="win-rs" onMouseDown={onResize}/>}</div>
+  return<div className={cls} style={style} onMouseDown={onFocus}><div className="tb" onMouseDown={onDrag} onDoubleClick={e=>{if(!e.target.closest('.tb-c'))doMax()}}><div className="tb-c" onMouseDown={e=>e.stopPropagation()} onMouseUp={e=>e.stopPropagation()} onClick={e=>e.stopPropagation()} onDoubleClick={e=>e.stopPropagation()}><button className="tb-b x" onClick={doClose}/><button className="tb-b n" onClick={doMin}/><button className="tb-b z" onClick={doMax}/></div><span className="tb-t">{win.label}</span></div><div className="wb"><Suspense fallback={<div style={{display:'flex',alignItems:'center',justifyContent:'center',padding:'3rem',color:'#555',gap:'0.6rem'}}><div className="spin" style={{width:18,height:18,border:'2px solid rgba(255,255,255,0.08)',borderTopColor:'#555',borderRadius:'50%',animation:'sp 600ms linear infinite'}}/> Loading…</div>}><C /></Suspense></div>{!max&&!snapped&&<div className="win-rs" onMouseDown={onResize}/>}</div>
 }
 
 /* ═══════════════ MAGNIFIED DOCK ═══════════════ */
@@ -641,4 +643,4 @@ class ErrorBoundary extends React.Component {
 
 /* ═══════════════ APP ROOT ═══════════════ */
 export default function App(){const[ph,sPh]=useState('bios');
-  return<NProvider>{ph==='bios'&&<BiosScreen onDone={()=>sPh('boot')}/>}{ph==='boot'&&<BootScreen onDone={()=>sPh('desktop')}/>}{ph==='desktop'&&<ErrorBoundary><Desktop /></ErrorBoundary>}</NProvider>}
+  return<NProvider><ThemeProvider>{ph==='bios'&&<BiosScreen onDone={()=>sPh('boot')}/>}{ph==='boot'&&<BootScreen onDone={()=>sPh('desktop')}/>}{ph==='desktop'&&<ErrorBoundary><Desktop /></ErrorBoundary>}</ThemeProvider></NProvider>}
