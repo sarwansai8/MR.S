@@ -259,7 +259,7 @@ function WeatherWidget() {
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.0060&current=temperature_2m,weather_code,wind_speed_10m')
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=17.385&longitude=78.4867&current=temperature_2m,weather_code,wind_speed_10m')
       .then(r => r.json())
       .then(d => {
         if (d.current) setW(d.current);
@@ -272,8 +272,8 @@ function WeatherWidget() {
       });
   }, []);
 
-  if (err) return <div className="wg"><div className="wg-t">Weather (NY)</div><div style={{fontSize:'0.75rem',color:'#f87171'}}>Failed to load</div></div>;
-  if (!w) return <div className="wg"><div className="wg-t">Weather (NY)</div><div style={{fontSize:'0.75rem',color:'var(--text-dim)'}}>Loading...</div></div>;
+  if (err) return <div className="wg"><div className="wg-t">Weather (HYD)</div><div style={{fontSize:'0.75rem',color:'#f87171'}}>Failed to load</div></div>;
+  if (!w) return <div className="wg"><div className="wg-t">Weather (HYD)</div><div style={{fontSize:'0.75rem',color:'var(--text-dim)'}}>Loading...</div></div>;
   
   const code = w.weather_code ?? w.weathercode ?? 0;
   const temp = w.temperature_2m ?? w.temperature ?? 0;
@@ -291,7 +291,7 @@ function WeatherWidget() {
 
   return (
     <div className="wg">
-      <div className="wg-t">Weather (NY)</div>
+      <div className="wg-t">Weather (HYD)</div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{ fontSize: '2rem' }}>{getWeatherIcon(code)}</div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -304,9 +304,9 @@ function WeatherWidget() {
 }
 
 const SONGS = [
-  { title: "Stranger Things Theme", artist: "Kyle Dixon & Michael Stein", src: "/audio/stranger_things.mp3" },
-  { title: "SoundHelix Song 1", artist: "T.C.O.", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-  { title: "SoundHelix Song 2", artist: "T.C.O.", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" }
+  { title: "Ambient Chill", artist: "Royalty Free", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+  { title: "Electronic Waves", artist: "Royalty Free", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+  { title: "Cyber Groove", artist: "Royalty Free", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
 ];
 
 function MusicWidget() {
@@ -378,7 +378,7 @@ function MusicWidget() {
 function GithubWidget() {
   const [data, setData] = useState(null);
   useEffect(() => {
-    fetch('https://api.github.com/users/sarwansai')
+    fetch('https://api.github.com/users/sarwansai8')
       .then(r => r.json())
       .then(d => setData(d))
       .catch(e => console.error(e));
@@ -402,65 +402,6 @@ function GithubWidget() {
   );
 }
 
-/* ═══════════════ CONTENT ═══════════════ */
-function AboutContent() {
-  return <div className="about">
-    <div className="about-av"><div className="about-av-inner">{INITIALS}</div></div>
-    <h1>{FULL_NAME}</h1>
-    <h2 className="about-role">{ROLE}</h2>
-    <p className="about-bio">{BIO}</p>
-    <div className="about-stats">
-      <div className="about-stat"><span className="about-sv">3+</span><span className="about-sl">Certs</span></div>
-      <div className="about-stat"><span className="about-sv">4</span><span className="about-sl">Projects</span></div>
-      <div className="about-stat"><span className="about-sv">4</span><span className="about-sl">Years Edu</span></div>
-    </div>
-    <div className="about-socials">
-      <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="soc" aria-label="GitHub"><I.GH /></a>
-      <a href="https://linkedin.com/in/maddipati-sarwansai" target="_blank" rel="noopener noreferrer" className="soc" aria-label="LinkedIn"><I.LI /></a>
-      <a href="mailto:sarwansai483@gmail.com" className="soc" aria-label="Mail"><I.Mail /></a>
-    </div>
-    <div className="about-certs" style={{marginTop:'1rem'}}>
-      <h3>Certifications</h3>
-      <ul style={{listStyle:'none',padding:0,margin:0}}>
-        <li><a href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume / CV</a></li>
-        <li><a href="https://drive.google.com/file/d/1bU_0Gzmdli1JnY5N6tHtQYulBAcUD_LW/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Microsoft Career Essentials (AZ-900)</a></li>
-        <li><a href="https://drive.google.com/file/d/1M5bAEPY4Lrt_dl1njPtj_6VnZZFGbw2v/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Certified Ethical Hacker (CEH)</a></li>
-        <li><a href="https://drive.google.com/file/d/1f8IzMWfsP5bzANTCcz_UlWCVc4oVjSb-/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Salesforce Certification</a></li>
-      </ul>
-    </div>
-  </div>;
-}
-
-function ProjectsContent() { return <div className="pg">{PROJECTS.map(p=><div key={p.title} className="pc"><h3><span>{p.e}</span> {p.title}</h3><p>{p.d}</p><div className="pt">{p.tags.map(t=><span key={t}>{t}</span>)}</div><div className="pl"><a href={p.link} target="_blank" rel="noopener noreferrer"><I.GH /> Code</a></div></div>)}</div>; }
-
-function SkillsContent(){const[v,sV]=useState(false);useEffect(()=>{const t=setTimeout(()=>sV(true),100);return()=>clearTimeout(t)},[]);return<div><div className="sk-s"><h3>Proficiency</h3><div className="sk-bars">{SBR.map((s,i)=><div key={s.n} className="sb"><span className="sb-n">{s.n}</span><div className="sb-tr"><div className="sb-fl" style={{width:v?`${s.p}%`:'0%',transitionDelay:`${i*90}ms`}}/></div><span className="sb-p">{s.p}%</span></div>)}</div></div>{SP.map(s=><div key={s.c} className="sk-s"><h3>{s.c}</h3><div className="sk-pills">{s.i.map(x=><span key={x} className="sk-pill">{x}</span>)}</div></div>)}</div>;}
-
-const CMDS={help:()=>[{t:' help · whoami · ls · date · clear · skills · projects · contact · neofetch · echo · history · uname · sudo · open',c:'inf'}],whoami:()=>[{t:FULL_NAME.toLowerCase().replace(/ /g,'-'),c:'ok'},{t:ROLE,c:'out'}],ls:()=>[{t:'drwxr-xr-x  about/\ndrwxr-xr-x  projects/\ndrwxr-xr-x  skills/\n-rw-r--r--  resume.pdf   42K\n-rw-r--r--  README.md    2.1K',c:'out'}],date:()=>[{t:new Date().toString(),c:'out'}],skills:()=>SP.map(s=>({t:`  ${s.c}: ${s.i.join(' · ')}`,c:'out'})),projects:()=>PROJECTS.map(p=>({t:`  ${p.e} ${p.title}`,c:'out'})),contact:()=>[{t:'  Phone: +91 9030118006\n  Email: sarwansai483@gmail.com\n  GitHub: github.com/sarwansai8\n  LinkedIn: linkedin.com/in/maddipati-sarwansai',c:'out'}],uname:()=>[{t:`${BRAND} OS 2.0.0 x86_64 React/19.x Vite/8.x`,c:'out'}],sudo:()=>[{t:'Nice try 😏',c:'err'}],neofetch:()=>[{t:`  ╭──────────╮   ${FULL_NAME.toLowerCase().replace(/ /g,'-')}@${OS_ID}\n  │  ▄▀▀▀▄  │   OS: ${BRAND} OS 2.0\n  │ █ ◉ ◉ █ │   Host: React 19.x\n  │  ▀▄▄▄▀  │   Shell: terminal.jsx\n  ╰──────────╯   Theme: Monochrome Dark\n                  Uptime: ∞`,c:'asc'}]};
-
-function TerminalContent({ openApp }){const[hist,sH]=useState([...ASCII.split('\n').map(l=>({t:l,c:'asc'})),{t:'',c:'out'},{t:`  Welcome to ${BRAND}OS Terminal v2.0 — type "help"`,c:'ok'},{t:'',c:'out'}]);const[inp,sI]=useState('');const[cmdH,sCH]=useState([]);const[hI,sHI]=useState(-1);const[typing,sT]=useState(null);const iR=useRef(null),sR=useRef(null);
-  useEffect(()=>{if(sR.current)sR.current.scrollTop=sR.current.scrollHeight},[hist,typing]);
-  useEffect(()=>{if(!typing)return;if(typing.i>=typing.l.length){sT(null);return}const l=typing.l[typing.i];if(typing.c>=l.t.length){sH(h=>[...h,l]);sT(p=>({...p,i:p.i+1,c:0}));return}const t=setTimeout(()=>sT(p=>({...p,c:p.c+1})),6);return()=>clearTimeout(t)},[typing]);
-  const onKey=e=>{if(e.key==='ArrowUp'){e.preventDefault();if(cmdH.length){const n=Math.min(hI+1,cmdH.length-1);sHI(n);sI(cmdH[cmdH.length-1-n])}}else if(e.key==='ArrowDown'){e.preventDefault();if(hI>0){sHI(hI-1);sI(cmdH[cmdH.length-hI])}else{sHI(-1);sI('')}}};
-  const run=e=>{e.preventDefault();if(typing)return;const raw=inp.trim(),cmd=raw.toLowerCase();const pr=[{t:`visitor@${OS_ID}:~$ ${raw}`,c:'cmd'}];if(raw){sCH(p=>[...p,raw]);sHI(-1)}if(cmd==='clear'){sH([]);sI('');return}if(!cmd){sH(h=>[...h,...pr]);sI('');return}sH(h=>[...h,...pr]);let out=[];if(cmd==='history')out=cmdH.map((c2,i)=>({t:`  ${i+1}  ${c2}`,c:'out'}));else if(cmd.startsWith('echo '))out=[{t:raw.slice(5),c:'out'}];else if(cmd.startsWith('open ')){const tgt=cmd.split(' ')[1];if(APPS.find(a=>a.id===tgt)){if(openApp){openApp(tgt);out=[{t:`Opening ${tgt}...`,c:'ok'}]}else{out=[{t:`Cannot open apps from this context`,c:'err'}]}}else{out=[{t:`App not found: ${tgt}. Available: about, projects, skills, contact`,c:'err'}]}}else{const fn=CMDS[cmd];if(fn)out=fn();else out=[{t:`bash: ${cmd}: command not found`,c:'err'}]}sT({l:out,i:0,c:0});sI('')};
-  const tt=typing&&typing.i<typing.l.length?typing.l[typing.i].t.slice(0,typing.c):'';
-  return<div className="terminal" onClick={()=>iR.current?.focus()} ref={sR}>{hist.map((l,i)=><div key={i} className={`tl ${l.c}`}>{l.t}</div>)}{typing&&typing.i<typing.l.length&&<div className={`tl ${typing.l[typing.i].c} typing-l`}>{tt}</div>}{!typing&&<form onSubmit={run} className="ti"><span className="tp">visitor@{OS_ID}:~$ </span><input ref={iR} className="tf" value={inp} onChange={e=>sI(e.target.value)} onKeyDown={onKey} autoFocus spellCheck={false}/></form>}</div>}
-
-const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-function ContactContent(){const[f,sF]=useState({name:'',email:'',msg:''});const[err,sE]=useState({});const[st,sS]=useState('idle');const{push}=useN()||{};
-  const onSub=e=>{e.preventDefault();const c={};if(!f.name)c.name='Required';if(!f.email)c.email='Required';else if(!EMAIL_RE.test(f.email))c.email='Invalid email';if(!f.msg)c.msg='Required';sE(c);if(Object.keys(c).length===0){sS('loading');setTimeout(()=>{sS('ok');sF({name:'',email:'',msg:''});if(push)push('System','Message sent successfully!');setTimeout(()=>sS('idle'),3000)},1500)}};
-  return<div className="cf" style={{padding:'0 1rem'}}>
-    <div style={{marginBottom:'1rem', fontSize:'0.85rem', color:'var(--text-d)', lineHeight:'1.6'}}>
-      <p><strong>Available for project discussions.</strong> Open to cybersecurity projects, learning opportunities, and collaboration.</p>
-      <p style={{marginTop:'0.5rem'}}>📞 +91 9030118006 (9am - 7pm IST)<br/>✉️ sarwansai483@gmail.com</p>
-    </div>
-    <form onSubmit={onSub} className="cf" style={{marginTop:'0.5rem'}}>
-      <div className="fg"><label>Name</label><input value={f.name} onChange={e=>sF(p=>({...p,name:e.target.value}))} disabled={st==='loading'}/>{err.name&&<span className="fe">{err.name}</span>}</div>
-      <div className="fg"><label>Email</label><input value={f.email} onChange={e=>sF(p=>({...p,email:e.target.value}))} disabled={st==='loading'}/>{err.email&&<span className="fe">{err.email}</span>}</div>
-      <div className="fg"><label>Message</label><textarea value={f.msg} onChange={e=>sF(p=>({...p,msg:e.target.value}))} disabled={st==='loading'}/>{err.msg&&<span className="fe">{err.msg}</span>}</div>
-      <button type="submit" className="fbtn" disabled={st==='loading'}>{st==='loading'?'Transmitting...':'Send Message'}</button>
-      {st==='ok'&&<div className="ffb ok">Encrypted message delivered to server.</div>}
-    </form>
-  </div>}
 
 /* ═══════════════ APP DEFS ═══════════════ */
 const APPS=[{id:'about',label:'About Me',icon:I.User,w:540,h:520,content:AboutApp},{id:'projects',label:'Projects',icon:I.Folder,w:720,h:540,content:ProjectsApp},{id:'skills',label:'Skills',icon:I.Code,w:580,h:560,content:SkillsApp},{id:'terminal',label:'Terminal',icon:I.Term,w:640,h:420,content:TerminalApp},{id:'contact',label:'Contact',icon:I.Mail,w:500,h:520,content:ContactApp},{id:'settings',label:'Settings',icon:I.Gear,w:500,h:480,content:SettingsApp},{id:'browser',label:'Browser',icon:I.Globe,w:800,h:600,content:BrowserApp},{id:'explorer',label:'File Explorer',icon:I.FolderF,w:700,h:500,content:ExplorerApp}];

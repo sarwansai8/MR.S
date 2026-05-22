@@ -30,7 +30,11 @@ export default function ContactApp() {
         body: JSON.stringify({
           name: f.name,
           email: f.email,
-          message: f.msg
+          message: f.msg,
+          _replyto: f.email,
+          _subject: `Portfolio Contact: ${f.name}`,
+          _captcha: false,
+          _template: 'table'
         })
       })
       .then(res => {

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { I } from '../IconSet.jsx';
 
 export default function BrowserApp() {
-  const [url, setUrl] = useState('https://en.wikipedia.org/wiki/Stranger_Things');
-  const [inputUrl, setInputUrl] = useState('https://en.wikipedia.org/wiki/Stranger_Things');
+  const [url, setUrl] = useState('https://github.com/sarwansai8');
+  const [inputUrl, setInputUrl] = useState('https://github.com/sarwansai8');
   const [loading, setLoading] = useState(true);
   const [useProxy, setUseProxy] = useState(false);
 
