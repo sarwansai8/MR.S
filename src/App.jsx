@@ -19,6 +19,20 @@ import ExplorerApp from './apps/ExplorerApp.jsx';
 
 function useClock() { const [n, sN] = useState(new Date()); useEffect(() => { const t = setInterval(() => sN(new Date()), 1000); return () => clearInterval(t); }, []); return n; }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+}
+
+const WireframeTerrain = React.lazy(() => import('./components/WireframeTerrain.jsx'));
+const MatrixRain = React.lazy(() => import('./components/MatrixRain.jsx'));
+
+
 /* ═══════════════ BIOS POST ═══════════════ */
 function BiosScreen({ onDone }) {
   const [lines, setLines] = useState([]);
@@ -128,106 +142,8 @@ function LoginScreen({ onDone }) {
   );
 }
 
-/* ═══════════════ WIREFRAME TERRAIN ═══════════════ */
-function WireframeTerrain() {
-  const ref = useRef(null); const mouse = useRef({ x: -9999, y: -9999 });
-  useEffect(() => {
-    const c = ref.current; if (!c) return; const ctx = c.getContext('2d'); let anim;
-    const resize = () => { c.width = window.innerWidth; c.height = window.innerHeight; }; resize(); window.addEventListener('resize', resize);
-    window.addEventListener('mousemove', e => { mouse.current = { x: e.clientX, y: e.clientY }; });
-    const COLS = 90, ROWS = 55, SP = 26, AMP = 60;
-    const STARS = Array.from({ length: 50 }, () => ({ x: Math.random(), y: Math.random() * 0.45, r: Math.random() * 1.8 + 0.4, vx: 0, vy: 0, bo: Math.random() * 0.25 + 0.08 }));
-    // Shooting stars
-    const SHOOTS = []; let lastShoot = 0;
-    let time = 0;
-    const draw = () => {
-      const W = c.width, H = c.height; ctx.clearRect(0, 0, W, H);
-      const horizon = H * 0.4, fov = W * 0.65;
-      const mx = mouse.current.x, my = mouse.current.y; time += 0.005;
+// Background canvas animations are lazy loaded from external files.
 
-      // Stars with mouse repulsion
-      for (const s of STARS) {
-        const sx = s.x * W, sy = s.y * H;
-        const dx = sx - mx, dy = sy - my, dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 180 && dist > 0) { const f = (180 - dist) / 180 * 0.25; s.vx += (dx / dist) * f; s.vy += (dy / dist) * f; }
-        s.vx *= 0.95; s.vy *= 0.95; s.x += s.vx / W; s.y += s.vy / H;
-        if (s.x < -0.01) s.x = 1.01; if (s.x > 1.01) s.x = -0.01;
-        if (s.y < -0.01) s.y = 0.45; if (s.y > 0.5) s.y = 0;
-        const tw = Math.sin(time * 2.5 + s.r * 8) * 0.12 + s.bo;
-        const grd = ctx.createRadialGradient(sx, sy, 0, sx, sy, s.r * 5);
-        grd.addColorStop(0, `rgba(255,255,255,${tw * 1.5})`); grd.addColorStop(0.3, `rgba(200,210,255,${tw})`); grd.addColorStop(1, 'transparent');
-        ctx.beginPath(); ctx.arc(sx, sy, s.r * 5, 0, Math.PI * 2); ctx.fillStyle = grd; ctx.fill();
-      }
-
-      // Shooting stars
-      const now2 = Date.now();
-      if (now2 - lastShoot > 3000 + Math.random() * 5000) { lastShoot = now2; SHOOTS.push({ x: Math.random() * W * 0.6 + W * 0.2, y: Math.random() * H * 0.3, vx: 4 + Math.random() * 3, vy: 2 + Math.random() * 2, life: 1 }); }
-      for (let i = SHOOTS.length - 1; i >= 0; i--) {
-        const sh = SHOOTS[i]; sh.x += sh.vx; sh.y += sh.vy; sh.life -= 0.02;
-        if (sh.life <= 0) { SHOOTS.splice(i, 1); continue; }
-        ctx.beginPath(); ctx.moveTo(sh.x, sh.y); ctx.lineTo(sh.x - sh.vx * 8, sh.y - sh.vy * 8);
-        const lg = ctx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx * 8, sh.y - sh.vy * 8);
-        lg.addColorStop(0, `rgba(255,255,255,${sh.life * 0.8})`); lg.addColorStop(1, 'transparent');
-        ctx.strokeStyle = lg; ctx.lineWidth = 1.5; ctx.stroke();
-      }
-
-      // Terrain with color gradient
-      const pts = [];
-      for (let r = 0; r < ROWS; r++) {
-        pts[r] = [];
-        const z = r * SP + 10, persp = fov / (fov + z);
-        for (let col = 0; col < COLS; col++) {
-          const x = (col - COLS / 2) * SP, nx = col / COLS, nz = r / ROWS;
-          let y = Math.sin(nx * 8 + time * 1.3) * AMP * 0.6;
-          y += Math.cos(nz * 6 - time * 0.9) * AMP * 0.45;
-          y += Math.sin((nx + nz) * 5 + time * 1.1) * AMP * 0.3;
-          y += Math.sin(nx * 18 + time * 2.5) * AMP * 0.08;
-          pts[r][col] = { sx: W / 2 + x * persp, sy: horizon + (y - z * 0.15) * persp, y };
-        }
-      }
-      for (let r = 0; r < ROWS; r++) {
-        const fadeR = Math.max(0, 1 - r / ROWS);
-        const baseAlpha = fadeR * 0.4;
-        // Horizontal lines with color
-        ctx.beginPath();
-        for (let c2 = 0; c2 < COLS; c2++) { const p = pts[r][c2]; c2 === 0 ? ctx.moveTo(p.sx, p.sy) : ctx.lineTo(p.sx, p.sy); }
-        const hue = 220 + Math.sin(time * 0.5 + r * 0.1) * 20;
-        ctx.strokeStyle = `hsla(${hue},15%,70%,${baseAlpha})`; ctx.lineWidth = 0.6; ctx.stroke();
-        // Vertical depth lines
-        if (r > 0) {
-          for (let c2 = 0; c2 < COLS; c2 += 2) {
-            const p0 = pts[r - 1][c2], p1 = pts[r][c2];
-            // Brighter at peaks
-            const peakGlow = Math.max(0, -pts[r][c2].y / AMP) * 0.15;
-            ctx.beginPath(); ctx.moveTo(p0.sx, p0.sy); ctx.lineTo(p1.sx, p1.sy);
-            ctx.strokeStyle = `hsla(${hue},20%,75%,${fadeR * 0.2 + peakGlow})`; ctx.lineWidth = 0.4; ctx.stroke();
-          }
-        }
-      }
-      anim = requestAnimationFrame(draw);
-    }; draw();
-    return () => { cancelAnimationFrame(anim); window.removeEventListener('resize', resize); };
-  }, []);
-  return <canvas ref={ref} />;
-}
-
-/* ═══════════════ MATRIX RAIN ═══════════════ */
-function MatrixRain({ onDone }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const c = ref.current; if (!c) return; const ctx = c.getContext('2d'); c.width = window.innerWidth; c.height = window.innerHeight;
-    const cols = Math.floor(c.width / 15), drops = Array(cols).fill(1);
-    const chars = 'アイウエオカキクケコサシスセソ0123456789ABCDEF';
-    let anim;
-    const draw = () => { ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0, 0, c.width, c.height); ctx.font = '13px monospace';
-      for (let i = 0; i < drops.length; i++) { const ch = chars[Math.floor(Math.random() * chars.length)]; ctx.fillStyle = Math.random() > 0.97 ? '#fff' : '#0f0'; ctx.fillText(ch, i * 15, drops[i] * 15); if (drops[i] * 15 > c.height && Math.random() > 0.975) drops[i] = 0; drops[i]++; }
-      anim = requestAnimationFrame(draw);
-    }; draw();
-    const t = setTimeout(() => { cancelAnimationFrame(anim); onDone(); }, 5000);
-    return () => { cancelAnimationFrame(anim); clearTimeout(t); };
-  }, [onDone]);
-  return <div className="matrix"><canvas ref={ref} /></div>;
-}
 
 /* ═══════════════ WIDGETS ═══════════════ */
 function ClockWidget({ now }) {
@@ -273,7 +189,18 @@ function WeatherWidget() {
   }, []);
 
   if (err) return <div className="wg"><div className="wg-t">Weather (HYD)</div><div style={{fontSize:'0.75rem',color:'#f87171'}}>Failed to load</div></div>;
-  if (!w) return <div className="wg"><div className="wg-t">Weather (HYD)</div><div style={{fontSize:'0.75rem',color:'var(--text-dim)'}}>Loading...</div></div>;
+  if (!w) return (
+    <div className="wg skeleton-widget">
+      <div className="wg-t">Weather (HYD)</div>
+      <div className="skeleton-row" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="skeleton-circle shimmer" style={{ width: '40px', height: '40px', borderRadius: '50%', flexShrink: 0 }}></div>
+        <div className="skeleton-lines" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <div className="skeleton-line shimmer" style={{ width: '60px', height: '14px', borderRadius: '4px' }}></div>
+          <div className="skeleton-line shimmer" style={{ width: '100px', height: '10px', borderRadius: '4px' }}></div>
+        </div>
+      </div>
+    </div>
+  );
   
   const code = w.weather_code ?? w.weathercode ?? 0;
   const temp = w.temperature_2m ?? w.temperature ?? 0;
@@ -384,7 +311,7 @@ function GithubWidget() {
       .catch(e => console.error(e));
   }, []);
   return (
-    <div className="wg">
+    <div className="wg skeleton-widget">
       <div className="wg-t">GitHub Status</div>
       {data ? (
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
@@ -396,7 +323,13 @@ function GithubWidget() {
           <I.GH style={{ width: '18px', height: '18px', color: 'var(--text-dim)' }} />
         </div>
       ) : (
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Loading...</div>
+        <div className="skeleton-row" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="skeleton-circle shimmer" style={{ width: '40px', height: '40px', borderRadius: '50%', flexShrink: 0 }}></div>
+          <div className="skeleton-lines" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div className="skeleton-line shimmer" style={{ width: '80px', height: '12px', borderRadius: '4px' }}></div>
+            <div className="skeleton-line shimmer" style={{ width: '115px', height: '8px', borderRadius: '4px' }}></div>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -458,11 +391,12 @@ function Win({win,zIndex,isFocused,onClose,onFocus,onMinimize,onSnap,openApp}){
 }
 
 /* ═══════════════ MAGNIFIED DOCK ═══════════════ */
-function MagDock({items,openIds,openApp,bouncingId}){const[mx,sMx]=useState(-1000);const dRef=useRef(null);const BASE=46,MAX_S=1.65,RANGE=130;
-  return<div className="dock-wrap"><div className="dock" ref={dRef} onMouseMove={e=>{const r=dRef.current?.getBoundingClientRect();if(r)sMx(e.clientX-r.left)}} onMouseLeave={()=>sMx(-1000)}>
-    {items.map((d,i)=>{if(d.id==='_sep')return<div key={i} className="dock-sep"/>;const Ic=d.icon;let scale=1;const el=dRef.current?.children[i];if(el&&mx>-500){const r=el.getBoundingClientRect(),dr=dRef.current.getBoundingClientRect(),c=r.left+r.width/2-dr.left,dist=Math.abs(mx-c);if(dist<RANGE)scale=1+(MAX_S-1)*(1-dist/RANGE)}const sz=BASE*scale;
-      return<div key={d.id} className={`dk-i ${bouncingId===d.id?'bouncing':''}`} style={{width:sz,height:sz,marginBottom:(sz-BASE)*0.5}} tabIndex={0} onClick={()=>openApp(d.id)}><span style={{color:d.color}}><Ic /></span><span className="dk-lbl">{d.label}</span>{openIds.has(d.id)&&<span className="dk-dot"/>}</div>})}
+function MagDock({items,openIds,openApp,bouncingId,isMobile}){const[mx,sMx]=useState(-1000);const dRef=useRef(null);const BASE=isMobile?52:46;const MAX_S=1.65,RANGE=130;
+  return<div className={`dock-wrap ${isMobile?'mobile':''}`}><div className="dock" ref={dRef} onMouseMove={e=>{if(isMobile)return;const r=dRef.current?.getBoundingClientRect();if(r)sMx(e.clientX-r.left)}} onMouseLeave={()=>sMx(-1000)}>
+    {items.map((d,i)=>{if(d.id==='_sep')return<div key={i} className="dock-sep"/>;const Ic=d.icon;let scale=1;const el=dRef.current?.children[i];if(!isMobile&&el&&mx>-500){const r=el.getBoundingClientRect(),dr=dRef.current.getBoundingClientRect(),c=r.left+r.width/2-dr.left,dist=Math.abs(mx-c);if(dist<RANGE)scale=1+(MAX_S-1)*(1-dist/RANGE)}const sz=BASE*scale;
+      return<div key={d.id} className={`dk-i ${bouncingId===d.id?'bouncing':''}`} style={{width:sz,height:sz,marginBottom:isMobile?0:(sz-BASE)*0.5}} tabIndex={0} onClick={()=>openApp(d.id)}><span style={{color:d.color}}><Ic /></span><span className="dk-lbl">{d.label}</span>{openIds.has(d.id)&&<span className="dk-dot"/>}</div>})}
   </div></div>}
+
 
 /* ═══════════════ SPOTLIGHT ═══════════════ */
 function Spotlight({onClose,openApp}){const[q,sQ]=useState('');const[active,sA]=useState(0);const iRef=useRef(null);
@@ -485,8 +419,66 @@ function QS({onClose,onShutdown}){const[wifi,sW]=useState(true);const[bt,sB]=use
     <div className="qs-grid"><div className={`qs-tile ${wifi?'active':''}`} onClick={()=>sW(v=>!v)}><I.Wifi />Wi-Fi</div><div className={`qs-tile ${bt?'active':''}`} onClick={()=>sB(v=>!v)}><I.BT />Bluetooth</div><div className="qs-tile active"><I.Moon />Dark</div></div>
     <div className="qs-slider-wrap"><I.Vol /><input type="range" className="qs-slider" min="0" max="100" defaultValue="75"/></div>
     <div className="qs-sep"/>
-    <div className="qs-power"><button onClick={onShutdown} title="Shut Down"><I.Power /></button><button title="Restart"><I.Restart /></button><button title="Lock"><I.Lock /></button></div>
+    <div className="qs-power">
+      <button onClick={() => { try { localStorage.removeItem('mrs-os-booted'); } catch(e){} onShutdown(); }} title="Shut Down"><I.Power /></button>
+      <button onClick={() => { try { localStorage.removeItem('mrs-os-booted'); } catch(e){} window.location.reload(); }} title="Restart"><I.Restart /></button>
+      <button onClick={onClose} title="Lock"><I.Lock /></button>
+    </div>
   </div></div>}
+
+/* ═══════════════ MOBILE APP DRAWER ═══════════════ */
+function AppDrawer({ onClose, openApp }) {
+  const [q, sQ] = useState('');
+  const filtered = useMemo(() => {
+    if (!q.trim()) return APPS;
+    return APPS.filter(a => a.label.toLowerCase().includes(q.toLowerCase()));
+  }, [q]);
+
+  return (
+    <div className="app-drawer-overlay" onClick={onClose}>
+      <div className="app-drawer-panel" onClick={e => e.stopPropagation()}>
+        <div className="app-drawer-header">
+          <h3>Applications</h3>
+          <button className="app-drawer-close" onClick={onClose} aria-label="Close drawer">&times;</button>
+        </div>
+        <div className="app-drawer-search">
+          <I.Search />
+          <input 
+            type="text" 
+            placeholder="Search applications..." 
+            value={q} 
+            onChange={e => sQ(e.target.value)} 
+            autoFocus 
+          />
+        </div>
+        <div className="app-drawer-grid">
+          {filtered.map(app => {
+            const Ic = app.icon;
+            return (
+              <div 
+                key={app.id} 
+                className="app-drawer-item" 
+                onClick={() => {
+                  openApp(app.id);
+                  onClose();
+                }}
+              >
+                <div className="app-drawer-icon-wrap">
+                  <Ic />
+                </div>
+                <span className="app-drawer-label">{app.label}</span>
+              </div>
+            );
+          })}
+          {filtered.length === 0 && (
+            <div className="app-drawer-empty">No applications found</div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 /* ═══════════════ NOTIFICATION CENTER ═══════════════ */
 function NC({onClose}){const{history,clearHistory}=useN()||{history:[],clearHistory:()=>{}};
@@ -502,13 +494,21 @@ function ShutdownScreen(){const[t,sT]=useState('Shutting down...');useEffect(()=
 function Desktop(){
   const[wins,sW]=useState([]);const[topZ,sTZ]=useState(100);const[hidden,sH2]=useState(new Set());const[ctx,sCx]=useState(null);const[focusId,sFI]=useState(null);const[qsOpen,sQS]=useState(false);const[ncOpen,sNC]=useState(false);const[spotOpen,sSP]=useState(false);const[actOpen,sAO]=useState(false);const[snapDir,sSD]=useState(null);const[matrix,sMat]=useState(false);const[bouncingId,sBI]=useState(null);const[shutdown,sSd]=useState(false);const[selRect,sSR]=useState(null);const now=useClock();const{push}=useN()||{};
   const { bgType } = useTheme();
+  const isMobile = useIsMobile();
+  const [drawerOpen, sDrawerOpen] = useState(false);
 
   // Konami
   const koRef=useRef([]);const KO='ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a';
   useEffect(()=>{const h=e=>{if(e.key==='k'&&(e.ctrlKey||e.metaKey)){e.preventDefault();sSP(true);return}koRef.current.push(e.key);koRef.current=koRef.current.slice(-10);if(koRef.current.join(',')=== KO){sMat(true);push?.('🎮 Easter Egg!','You found the Matrix!')}};window.addEventListener('keydown',h);return()=>window.removeEventListener('keydown',h)},[push]);
-  useEffect(()=>{setTimeout(()=>push?.('Welcome',`Right-click for menu · Ctrl+K to search · Drag to edges to snap · Try ↑↑↓↓←→←→BA`),900)},[]);
+  useEffect(()=>{setTimeout(()=>push?.('Welcome',`Right-click for menu · Ctrl+K to search · Drag to edges to snap · Try ↑↑↓↓←→←→BA`), 900)},[]);
 
-  const openApp=useCallback(id=>{if(id.startsWith('_'))return;const app=APPS.find(a=>a.id===id);if(!app)return;
+  const openApp=useCallback(id=>{
+    if (id === '_grid') {
+      sDrawerOpen(true);
+      return;
+    }
+    if(id.startsWith('_'))return;
+    const app=APPS.find(a=>a.id===id);if(!app)return;
     sW(prev=>{if(prev.find(w=>w.id===id)){sH2(h=>{const n=new Set(h);n.delete(id);return n});sFI(id);sTZ(z=>{const nz=z+1;sW(p=>p.map(w=>w.id===id?{...w,zIndex:nz}:w));return nz});return prev}
     const off=prev.length*28,nz=topZ+1;sTZ(nz);sFI(id);sBI(id);setTimeout(()=>sBI(null),650);
     return[...prev,{...app,x:Math.max(110,(window.innerWidth-app.w)/2+off),y:Math.max(50,(window.innerHeight-app.h-80)/2+off),zIndex:nz}]});},[topZ]);
@@ -538,18 +538,34 @@ function Desktop(){
 
   return<div className="desktop">
     <div className="desktop-bg">
-      {bgType === 'wireframe' && <WireframeTerrain />}
-      {bgType === 'matrix' && <MatrixRain onDone={() => sMat(false)} />}
+      {bgType === 'wireframe' && (
+        <Suspense fallback={<div className="bg-fallback" style={{width:'100%',height:'100%',background:'var(--bg)'}}/>}>
+          <WireframeTerrain />
+        </Suspense>
+      )}
+      {bgType === 'matrix' && (
+        <Suspense fallback={<div className="bg-fallback" style={{width:'100%',height:'100%',background:'var(--bg)'}}/>}>
+          <MatrixRain onDone={() => sMat(false)} />
+        </Suspense>
+      )}
       {bgType === 'solid' && <div style={{width:'100%',height:'100%',background:'var(--bg)'}} />}
     </div>
     <div className="desktop-center-logo"><div className="center-logo-text">{BRAND}</div></div>
     <div className="top-panel">
-      <div className="panel-l"><div className={`panel-act ${actOpen?'active':''}`} onClick={()=>sAO(v=>!v)}>Activities</div></div>
+      <div className="panel-l">
+        {isMobile ? (
+          <div className={`panel-tray ${drawerOpen ? 'active' : ''}`} onClick={() => sDrawerOpen(v => !v)} title="Applications">
+            <I.Menu style={{ width: '15px', height: '15px', color: 'var(--text)' }} />
+          </div>
+        ) : (
+          <div className={`panel-act ${actOpen?'active':''}`} onClick={()=>sAO(v=>!v)}>Activities</div>
+        )}
+      </div>
       <div className="panel-c">{dateStr} {timeStr}</div>
       <div className="panel-r">
         <div className="panel-tray" onClick={()=>{sNC(v=>!v);sQS(false)}}><I.Bell /></div>
         <div className="panel-tray" onClick={()=>{sQS(v=>!v);sNC(false)}}><I.Wifi /><I.Vol /><I.Bat /></div>
-        <div className="panel-tray"><I.Power /></div>
+        <div className="panel-tray" onClick={()=>{sQS(v=>!v);sNC(false)}}><I.Power /></div>
       </div>
     </div>
 
@@ -557,19 +573,29 @@ function Desktop(){
     {ncOpen&&<NC onClose={()=>sNC(false)} />}
     {spotOpen&&<Spotlight onClose={()=>sSP(false)} openApp={openApp} />}
     {actOpen&&<Activities wins={wins.filter(w=>!hidden.has(w.id))} onClose={()=>sAO(false)} onFocus={focusWin} />}
+    {drawerOpen&&<AppDrawer onClose={()=>sDrawerOpen(false)} openApp={openApp} />}
 
     <div className="desktop-area" onContextMenu={onCtx} onClick={()=>sCx(null)} onMouseDown={onDesktopDown}>
+      {isMobile && (
+        <div className="mobile-widgets-container">
+          <WeatherWidget />
+          <GithubWidget />
+          <SysMonWidget />
+          <MusicWidget />
+        </div>
+      )}
       <div className="desktop-icons">{SHORTCUTS.map(s=>{const Ic=s.icon;if(s.type==='link')return<a key={s.id} href={s.href} target="_blank" rel="noopener noreferrer" className="dsc"><div className="dsc-icon" style={{color:s.color}}><Ic /></div><span className="dsc-lbl">{s.label}</span></a>;return<div key={s.id} className="dsc" tabIndex={0} onDoubleClick={()=>openApp(s.id)} onKeyDown={e=>{if(e.key==='Enter')openApp(s.id)}}><div className="dsc-icon" style={{color:s.color}}><Ic /></div><span className="dsc-lbl">{s.label}</span></div>})}</div>
-      <div className="widgets-panel"><ClockWidget now={now} /><WeatherWidget /><SysMonWidget /><GithubWidget /><MusicWidget /></div>
-      {wins.map(w=>hidden.has(w.id)?null:<Win key={w.id} win={w} zIndex={w.zIndex} isFocused={focusId===w.id} onClose={()=>closeWin(w.id)} onFocus={()=>focusWin(w.id)} onMinimize={()=>minWin(w.id)} onSnap={sSD} openApp={openApp}/>)}
+      {!isMobile && <div className="widgets-panel"><ClockWidget now={now} /><WeatherWidget /><SysMonWidget /><GithubWidget /><MusicWidget /></div>}
+      {wins.map(w=>hidden.has(w.id)?null:<Win key={w.id} win={w} zIndex={w.zIndex} isFocused={focusId===w.id} onClose={()=>closeWin(w.id)} onFocus={()=>focusWin(w.id)} onMinimize={()=>minWin(w.id)} onSnap={sSD} openApp={openApp} isMobile={isMobile}/>)}
     </div>
 
     {selRect&&<div className="sel-rect" style={selRect}/>}
     {snapRect&&<div className="snap-pre" style={snapRect}/>}
     {ctx&&<div className="ctx" style={{left:Math.min(ctx.x,window.innerWidth-240),top:Math.min(ctx.y,window.innerHeight-ctx.items.length*40-20)}}>{ctx.items.map((it,i)=>it.sep?<div key={i} className="ctx-s"/>:<div key={i} className="ctx-i" onClick={()=>{it.action?.();sCx(null)}}>{it.icon}<span>{it.label}</span></div>)}</div>}
-    {matrix&&<MatrixRain onDone={()=>sMat(false)} />}
-    <MagDock items={DOCK} openIds={openIds} openApp={openApp} bouncingId={bouncingId} />
+    {matrix&&<Suspense fallback={null}><MatrixRain onDone={()=>sMat(false)} /></Suspense>}
+    <MagDock items={DOCK} openIds={openIds} openApp={openApp} bouncingId={bouncingId} isMobile={isMobile} />
   </div>}
+
 
 class ErrorBoundary extends React.Component {
   constructor(props) { super(props); this.state = { hasError: false, error: null }; }
@@ -583,5 +609,30 @@ class ErrorBoundary extends React.Component {
 }
 
 /* ═══════════════ APP ROOT ═══════════════ */
-export default function App(){const[ph,sPh]=useState('bios');
-  return<NProvider><ThemeProvider>{ph==='bios'&&<BiosScreen onDone={()=>sPh('boot')}/>}{ph==='boot'&&<BootScreen onDone={()=>sPh('desktop')}/>}{ph==='desktop'&&<ErrorBoundary><Desktop /></ErrorBoundary>}</ThemeProvider></NProvider>}
+export default function App(){
+  const [ph, sPh] = useState(() => {
+    try {
+      return localStorage.getItem('mrs-os-booted') ? 'desktop' : 'bios';
+    } catch (e) {
+      return 'bios';
+    }
+  });
+  
+  const handleBootDone = () => {
+    try {
+      localStorage.setItem('mrs-os-booted', 'true');
+    } catch (e) {}
+    sPh('desktop');
+  };
+
+  return (
+    <NProvider>
+      <ThemeProvider>
+        {ph === 'bios' && <BiosScreen onDone={() => sPh('boot')} />}
+        {ph === 'boot' && <BootScreen onDone={handleBootDone} />}
+        {ph === 'desktop' && <ErrorBoundary><Desktop /></ErrorBoundary>}
+      </ThemeProvider>
+    </NProvider>
+  );
+}
+

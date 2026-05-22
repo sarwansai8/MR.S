@@ -19,7 +19,7 @@ export default function SettingsApp() {
       <div className="fg">
         <label>Theme Mode</label>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          {['dark', 'light', 'hacker'].map(m => (
+          {['dark', 'light', 'hacker', 'neon'].map(m => (
             <button 
               key={m} 
               onClick={() => setThemeMode(m)}
@@ -30,7 +30,7 @@ export default function SettingsApp() {
                 color: themeMode === m ? '#fff' : 'var(--text)'
               }}
             >
-              {m.charAt(0).toUpperCase() + m.slice(1)}
+              {m === 'neon' ? 'Neon' : m.charAt(0).toUpperCase() + m.slice(1)}
             </button>
           ))}
         </div>

@@ -38,6 +38,18 @@ export const THEMES = {
     '--text-muted': '#005500',
     '--border': 'rgba(0, 255, 0, 0.2)',
     '--border-focus': 'rgba(0, 255, 0, 0.5)',
+  },
+  neon: {
+    '--bg': '#070110',
+    '--bg-panel': 'rgba(18, 5, 29, 0.72)',
+    '--bg-dock': 'rgba(23, 7, 36, 0.65)',
+    '--bg-window': 'rgba(20, 4, 32, 0.90)',
+    '--bg-titlebar': 'rgba(28, 8, 44, 0.95)',
+    '--text': '#ff79c6',
+    '--text-dim': '#00f5ff',
+    '--text-muted': '#a26fc0',
+    '--border': 'rgba(0, 245, 255, 0.2)',
+    '--border-focus': 'rgba(255, 0, 127, 0.5)',
   }
 };
 
