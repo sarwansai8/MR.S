@@ -4,13 +4,23 @@ import { useN } from '../components/NotificationContext.jsx';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function ContactApp() {
-  const [f, sF] = useState({ name: '', email: '', msg: '' });
+  const [f, sF] = useState({ name: '', email: '', msg: '', _honey: '' });
   const [err, sE] = useState({});
   const [st, sS] = useState('idle');
   const { push } = useN() || {};
   
   const onSub = e => {
     e.preventDefault();
+    
+    // Honeypot bot-trap trigger
+    if (f._honey) {
+      sS('ok');
+      sF({ name: '', email: '', msg: '', _honey: '' });
+      if (push) push('System', 'Message sent successfully!');
+      setTimeout(() => sS('idle'), 4000);
+      return;
+    }
+
     const c = {};
     if (!f.name) c.name = 'Required';
     if (!f.email) c.email = 'Required';
@@ -21,7 +31,14 @@ export default function ContactApp() {
     
     if (Object.keys(c).length === 0) {
       sS('loading');
-      fetch("https://formsubmit.co/ajax/sarwansai483@gmail.com", {
+      
+      // Obfuscated email reconstruction to block basic static scrapers and harvesters.
+      // Pro-tip: Swap this with a FormSubmit unique token for 100% OPSEC!
+      const targetUser = 'sarwansai483';
+      const targetDomain = 'gmail.com';
+      const endpoint = `https://formsubmit.co/ajax/${targetUser}@${targetDomain}`;
+
+      fetch(endpoint, {
         method: "POST",
         headers: { 
           'Content-Type': 'application/json',
@@ -34,7 +51,8 @@ export default function ContactApp() {
           _replyto: f.email,
           _subject: `Portfolio Contact: ${f.name}`,
           _captcha: false,
-          _template: 'table'
+          _template: 'table',
+          _honey: f._honey
         })
       })
       .then(res => {
@@ -59,9 +77,27 @@ export default function ContactApp() {
     <div className="cf" style={{ padding: '0 1rem' }}>
       <div style={{ marginBottom: '1rem', fontSize: '0.85rem', color: 'var(--text-d)', lineHeight: '1.6' }}>
         <p><strong>Available for project discussions.</strong> Open to cybersecurity projects, learning opportunities, and collaboration.</p>
-        <p style={{ marginTop: '0.5rem' }}>📞 +91 9030118006 (9am - 7pm IST)<br/>✉️ sarwansai483@gmail.com</p>
+        <p style={{ marginTop: '0.5rem' }}>
+          📞 +91 9030118006 (9am - 7pm IST)<br/>
+          ✉️ <a href={`mailto:${'sarwansai483' + '@' + 'gmail.com'}`} style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>
+            {'sarwansai483' + '@' + 'gmail.com'}
+          </a>
+        </p>
       </div>
       <form onSubmit={onSub} className="cf" style={{ marginTop: '0.5rem' }}>
+        {/* Anti-spam honeypot field (hidden from users, targeted by bots) */}
+        <div style={{ display: 'none' }} aria-hidden="true">
+          <label htmlFor="sys_honey_contact">Leave this field blank</label>
+          <input 
+            id="sys_honey_contact"
+            type="text" 
+            name="_honey" 
+            value={f._honey} 
+            onChange={e => sF(p => ({ ...p, _honey: e.target.value }))} 
+            tabIndex={-1} 
+            autoComplete="off" 
+          />
+        </div>
         <div className="fg">
           <label>Name</label>
           <input value={f.name} onChange={e => sF(p => ({ ...p, name: e.target.value }))} disabled={st === 'loading'} />

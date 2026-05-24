@@ -9,7 +9,7 @@ const CMDS = {
   date: () => [{ t: new Date().toString(), c: 'out' }],
   skills: () => SP.map(s => ({ t: `  ${s.c}: ${s.i.join(' · ')}`, c: 'out' })),
   projects: () => PROJECTS.map(p => ({ t: `  ${p.e} ${p.title}`, c: 'out' })),
-  contact: () => [{ t: '  Phone: +91 9030118006\n  Email: sarwansai483@gmail.com\n  GitHub: github.com/sarwansai8\n  LinkedIn: linkedin.com/in/sarwansai', c: 'out' }],
+  contact: () => [{ t: `  Phone: +91 9030118006\n  Email: ${'sarwansai483' + '@' + 'gmail.com'}\n  GitHub: github.com/sarwansai8\n  LinkedIn: linkedin.com/in/sarwansai`, c: 'out' }],
   uname: () => [{ t: `${BRAND} OS 2.0.0 x86_64 React/19.x Vite/8.x`, c: 'out' }],
   sudo: () => [{ t: 'Nice try 😏', c: 'err' }],
   neofetch: () => [{ t: `  ╭──────────╮   ${FULL_NAME.toLowerCase().replace(/ /g, '-')}@${OS_ID}\n  │  ▄▀▀▀▄  │   OS: ${BRAND} OS 2.0\n  │ █ ◉ ◉ █ │   Host: React 19.x\n  │  ▀▄▄▄▀  │   Shell: terminal.jsx\n  ╰──────────╯   Theme: Adaptive\n                  Uptime: ∞`, c: 'asc' }]

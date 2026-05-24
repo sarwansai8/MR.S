@@ -82,7 +82,7 @@ export default function MobilePortfolio() {
           <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="mp-hero-btn mp-hero-btn-secondary">
             <I.GH /> GitHub
           </a>
-          <a href="mailto:sarwansai483@gmail.com" className="mp-hero-btn mp-hero-btn-secondary">
+          <a href={`mailto:${'sarwansai483' + '@' + 'gmail.com'}`} className="mp-hero-btn mp-hero-btn-secondary">
             <I.Mail /> Email
           </a>
         </div>
@@ -204,11 +204,11 @@ export default function MobilePortfolio() {
             <h2 className="mp-section-title">Get in Touch</h2>
             <p className="mp-contact-intro">I'm actively seeking opportunities in Software Engineering and Cybersecurity. Let's connect!</p>
             <div className="mp-contact-cards">
-              <a href="mailto:sarwansai483@gmail.com" className="mp-contact-card">
+              <a href={`mailto:${'sarwansai483' + '@' + 'gmail.com'}`} className="mp-contact-card">
                 <I.Mail />
                 <div>
                   <div className="mp-contact-card-label">Email</div>
-                  <div className="mp-contact-card-value">sarwansai483@gmail.com</div>
+                  <div className="mp-contact-card-value">{'sarwansai483' + '@' + 'gmail.com'}</div>
                 </div>
               </a>
               <a href="https://linkedin.com/in/sarwansai" target="_blank" rel="noopener noreferrer" className="mp-contact-card">
