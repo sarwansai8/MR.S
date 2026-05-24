@@ -22,8 +22,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
     status: 'Complete',
     highlight: 'Zero-Trust Medical Threat Management System',
-    demo: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
-    accentColor: '#3b82f6'
+    demo: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture#installation',
+    accentColor: '#3b82f6',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_cybertrap', 
@@ -34,8 +36,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git',
     status: 'Complete',
     highlight: 'Multi-Layered Intrusion Trap & Forensics Analysis',
-    demo: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git',
-    accentColor: '#f59e0b'
+    demo: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git#usage',
+    accentColor: '#f59e0b',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_zerotrace', 
@@ -46,8 +50,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/ZeroTrace-Health.git',
     status: 'Complete',
     highlight: 'On-Chain Secure Health Records Protocol',
-    demo: 'https://github.com/sarwansai8/ZeroTrace-Health.git',
-    accentColor: '#10b981'
+    demo: 'https://github.com/sarwansai8/ZeroTrace-Health.git#getting-started',
+    accentColor: '#10b981',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_sentinelx', 
@@ -58,8 +64,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/SentinelX.git',
     status: 'Complete',
     highlight: 'Multimodal Anomaly Scoring & Bot Detection Network',
-    demo: 'https://github.com/sarwansai8/SentinelX.git',
-    accentColor: '#8b5cf6'
+    demo: 'https://github.com/sarwansai8/SentinelX.git#installation',
+    accentColor: '#8b5cf6',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_wifi_security', 
@@ -70,8 +78,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/wifi-security-tool.git',
     status: 'Complete',
     highlight: 'Network Discovery & Handshake Capture Walkthroughs',
-    demo: 'https://github.com/sarwansai8/wifi-security-tool.git',
-    accentColor: '#ec4899'
+    demo: 'https://github.com/sarwansai8/wifi-security-tool.git#installation',
+    accentColor: '#ec4899',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_courses', 
@@ -83,7 +93,8 @@ export const PROJECTS = [
     status: 'Complete',
     highlight: 'Full-Stack MERN Learning Portal',
     demo: 'https://github.com/sarwansai8',
-    accentColor: '#06b6d4'
+    accentColor: '#06b6d4',
+    local: false
   },
   { 
     id: 'p_forensicax', 
@@ -94,8 +105,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
     highlight: 'Mobile Artifact Extraction & Analysis Tool',
-    demo: 'https://github.com/sarwansai8',
-    accentColor: '#e11d48'
+    demo: 'https://github.com/sarwansai8#installation',
+    accentColor: '#e11d48',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_iot_security', 
@@ -106,8 +119,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
     highlight: 'Network-Level Smart Device Intrusion Detection',
-    demo: 'https://github.com/sarwansai8',
-    accentColor: '#14b8a6'
+    demo: 'https://github.com/sarwansai8#getting-started',
+    accentColor: '#14b8a6',
+    local: true,
+    demoLabel: 'Setup'
   },
   { 
     id: 'p_library', 
@@ -118,8 +133,10 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
     highlight: 'Cataloging and Borrowing Relational Database Workflows',
-    demo: 'https://github.com/sarwansai8',
-    accentColor: '#6b7280'
+    demo: 'https://github.com/sarwansai8#run-instructions',
+    accentColor: '#6b7280',
+    local: true,
+    demoLabel: 'Setup'
   }
 ];
 

@@ -52,9 +52,16 @@ export default function ProjectsApp() {
             
             <div className="pc-header">
               <span className="pc-emoji">{p.e}</span>
-              <span className={`pc-status ${p.status === 'Active' ? 'status-active' : 'status-completed'}`}>
-                {p.status === 'Active' ? '● Active' : '✓ Completed'}
-              </span>
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
+                {p.local && (
+                  <span className="pc-status" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', borderColor: 'rgba(245, 158, 11, 0.25)' }}>
+                    🖥️ Local Tool
+                  </span>
+                )}
+                <span className={`pc-status ${p.status === 'Active' ? 'status-active' : 'status-completed'}`}>
+                  {p.status === 'Active' ? '● Active' : '✓ Completed'}
+                </span>
+              </div>
             </div>
 
             <div className="pc-body">
@@ -78,8 +85,8 @@ export default function ProjectsApp() {
                   <I.GH /> Source
                 </a>
                 {p.demo && (
-                  <a href={p.demo} target="_blank" rel="noopener noreferrer" className="project-link demo-link" title="Open Live Demo">
-                    <I.Ext /> Demo
+                  <a href={p.demo} target="_blank" rel="noopener noreferrer" className="project-link demo-link" title={p.local ? "View Setup Guide" : "Open Live Demo"}>
+                    <I.Ext /> {p.demoLabel || 'Demo'}
                   </a>
                 )}
               </div>

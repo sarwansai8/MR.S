@@ -176,7 +176,14 @@ export default function MobilePortfolio() {
               <div key={p.id} className="mp-project-card" style={{ '--pc': p.accentColor }}>
                 <div className="mp-project-emoji">{p.e}</div>
                 <h3 className="mp-project-title">{p.title}</h3>
-                <p className="mp-project-highlight">{p.highlight}</p>
+                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
+                  {p.local && (
+                    <span style={{ fontSize: '0.65rem', padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(245, 158, 11, 0.25)', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', fontWeight: 'bold', fontFamily: 'monospace' }}>
+                      🖥️ Local Setup
+                    </span>
+                  )}
+                  <span className="mp-project-highlight" style={{ marginTop: 0 }}>{p.highlight}</span>
+                </div>
                 <p className="mp-project-desc">{p.d}</p>
                 <div className="mp-project-tags">
                   {p.tags.map(t => (
@@ -189,7 +196,7 @@ export default function MobilePortfolio() {
                   </a>
                   {p.demo && (
                     <a href={p.demo} target="_blank" rel="noopener noreferrer" className="mp-project-link">
-                      <I.Ext /> Demo
+                      <I.Ext /> {p.demoLabel || 'Demo'}
                     </a>
                   )}
                 </div>
