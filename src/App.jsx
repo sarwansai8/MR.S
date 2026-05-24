@@ -16,6 +16,7 @@ import ContactApp from './apps/ContactApp.jsx';
 import SettingsApp from './apps/SettingsApp.jsx';
 import BrowserApp from './apps/BrowserApp.jsx';
 import ExplorerApp from './apps/ExplorerApp.jsx';
+import MobilePortfolio from './apps/MobilePortfolio.jsx';
 
 function useClock() { const [n, sN] = useState(new Date()); useEffect(() => { const t = setInterval(() => sN(new Date()), 1000); return () => clearInterval(t); }, []); return n; }
 
@@ -610,13 +611,25 @@ class ErrorBoundary extends React.Component {
 
 /* ═══════════════ APP ROOT ═══════════════ */
 export default function App(){
+  const isMobile = useIsMobile();
   const [ph, sPh] = useState(() => {
+    if (isMobile) return 'mobile';
     try {
       return localStorage.getItem('mrs-os-booted') ? 'desktop' : 'bios';
     } catch (e) {
       return 'bios';
     }
   });
+  
+  // Respond to resize: if switching to mobile mid-session, show mobile view
+  useEffect(() => {
+    if (isMobile && ph !== 'mobile') sPh('mobile');
+    if (!isMobile && ph === 'mobile') {
+      try {
+        sPh(localStorage.getItem('mrs-os-booted') ? 'desktop' : 'bios');
+      } catch (e) { sPh('bios'); }
+    }
+  }, [isMobile]);
   
   const handleBootDone = () => {
     try {
@@ -628,6 +641,7 @@ export default function App(){
   return (
     <NProvider>
       <ThemeProvider>
+        {ph === 'mobile' && <MobilePortfolio />}
         {ph === 'bios' && <BiosScreen onDone={() => sPh('boot')} />}
         {ph === 'boot' && <BootScreen onDone={handleBootDone} />}
         {ph === 'desktop' && <ErrorBoundary><Desktop /></ErrorBoundary>}
