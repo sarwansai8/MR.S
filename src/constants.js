@@ -14,16 +14,76 @@ export const ASCII = ` ███╗   ███╗██████╗       �
 
 export const PROJECTS = [
   { 
+    id: 'p_healthgov', 
+    title: 'Real-Time Cyber Threat Management', 
+    d: 'Enterprise-grade healthcare platform (HealthGov) with 28 security layers (zero-trust, HIPAA-focused). Includes a built-in penetration test simulator, live attack map, and honeypots.', 
+    e: '🛡️', 
+    tags: ['Next.js 15', 'TypeScript', 'MongoDB', 'Cryptography', 'Honeypots'], 
+    link: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
+    status: 'Complete',
+    highlight: 'Zero-Trust Medical Threat Management System',
+    demo: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
+    accentColor: '#3b82f6'
+  },
+  { 
+    id: 'p_cybertrap', 
+    title: 'CyberTrapX Honeypot System', 
+    d: 'Advanced multi-layered honeypot system to lure attackers, log malicious activity, and analyze threat behavior for forensics and pattern analysis.', 
+    e: '🪤', 
+    tags: ['Python', 'Flask', 'PowerShell', 'Threat Intelligence', 'Digital Forensics'], 
+    link: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git',
+    status: 'Complete',
+    highlight: 'Multi-Layered Intrusion Trap & Forensics Analysis',
+    demo: 'https://github.com/sarwansai8/Advanced-Multi-Layered-Honeypot-System.git',
+    accentColor: '#f59e0b'
+  },
+  { 
+    id: 'p_zerotrace', 
+    title: 'ZeroTrace-Health', 
+    d: 'Decentralized healthcare management system built with Polygon, Hardhat, Supabase, and React. Focused on privacy-first workflows with client-side encryption, on-chain integrity checks, and role-based access control.', 
+    e: '🏥', 
+    tags: ['React', 'Polygon', 'Supabase', 'Hardhat', 'Client-Side Encryption'], 
+    link: 'https://github.com/sarwansai8/ZeroTrace-Health.git',
+    status: 'Complete',
+    highlight: 'On-Chain Secure Health Records Protocol',
+    demo: 'https://github.com/sarwansai8/ZeroTrace-Health.git',
+    accentColor: '#10b981'
+  },
+  { 
+    id: 'p_sentinelx', 
+    title: 'SentinelX', 
+    d: 'Real-time multimodal crisis intelligence system for social media credibility scoring. Combines NLP, computer vision, bot detection, and anomaly analysis with a Chrome extension and FastAPI backend.', 
+    e: '🛰️', 
+    tags: ['Python', 'FastAPI', 'MongoDB', 'Chrome Extension', 'Machine Learning'], 
+    link: 'https://github.com/sarwansai8/SentinelX.git',
+    status: 'Complete',
+    highlight: 'Multimodal Anomaly Scoring & Bot Detection Network',
+    demo: 'https://github.com/sarwansai8/SentinelX.git',
+    accentColor: '#8b5cf6'
+  },
+  { 
+    id: 'p_wifi_security', 
+    title: 'Wi‑Fi Security Assessment Tool', 
+    d: 'An educational tool for demonstrating Wi‑Fi security concepts and basic network vulnerability assessment. Includes network discovery guidance, handshake capture walkthroughs, and password strength estimation.', 
+    e: '📶', 
+    tags: ['Python', 'Nmap', 'WPA/WPA2', 'Network Auditing', 'Education'], 
+    link: 'https://github.com/sarwansai8/wifi-security-tool.git',
+    status: 'Complete',
+    highlight: 'Network Discovery & Handshake Capture Walkthroughs',
+    demo: 'https://github.com/sarwansai8/wifi-security-tool.git',
+    accentColor: '#ec4899'
+  },
+  { 
     id: 'p_courses', 
     title: 'Courses Platform', 
-    d: 'Built a full-stack MERN application with Firebase Auth, role-based access, and MongoDB-based Idea Board. Designed responsive UI using React Router, Redux, and Framer Motion for smooth user experience.', 
+    d: 'Built a full-stack MERN application with Firebase Auth, role-based access, and MongoDB-based Idea Board. Designed responsive UI using React Router, Redux, and Framer Motion.', 
     e: '🌐', 
     tags: ['React', 'Node.js', 'MongoDB', 'Firebase Auth', 'Redux', 'Framer Motion'], 
     link: 'https://github.com/sarwansai8',
     status: 'Complete',
     highlight: 'Full-Stack MERN Learning Portal',
     demo: 'https://github.com/sarwansai8',
-    accentColor: '#3b82f6' // accent blue
+    accentColor: '#06b6d4'
   },
   { 
     id: 'p_forensicax', 
@@ -35,7 +95,7 @@ export const PROJECTS = [
     status: 'Complete',
     highlight: 'Mobile Artifact Extraction & Analysis Tool',
     demo: 'https://github.com/sarwansai8',
-    accentColor: '#e11d48' // accent rose
+    accentColor: '#e11d48'
   },
   { 
     id: 'p_iot_security', 
@@ -47,7 +107,19 @@ export const PROJECTS = [
     status: 'Complete',
     highlight: 'Network-Level Smart Device Intrusion Detection',
     demo: 'https://github.com/sarwansai8',
-    accentColor: '#22c55e' // accent green
+    accentColor: '#14b8a6'
+  },
+  { 
+    id: 'p_library', 
+    title: 'Library Management System', 
+    d: 'Developed a robust desktop application with Java and MySQL database for cataloging, member management, search utilities, and borrowing workflows.', 
+    e: '📚', 
+    tags: ['Java', 'MySQL', 'Database Design', 'Backend Engineering'], 
+    link: 'https://github.com/sarwansai8',
+    status: 'Complete',
+    highlight: 'Cataloging and Borrowing Relational Database Workflows',
+    demo: 'https://github.com/sarwansai8',
+    accentColor: '#6b7280'
   }
 ];
 
