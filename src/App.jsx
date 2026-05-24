@@ -338,7 +338,7 @@ function GithubWidget() {
 
 
 /* ═══════════════ APP DEFS ═══════════════ */
-const APPS=[{id:'about',label:'About Me',icon:I.User,w:540,h:520,content:AboutApp},{id:'projects',label:'Projects',icon:I.Folder,w:720,h:540,content:ProjectsApp},{id:'skills',label:'Skills',icon:I.Code,w:580,h:560,content:SkillsApp},{id:'terminal',label:'Terminal',icon:I.Term,w:640,h:420,content:TerminalApp},{id:'contact',label:'Contact',icon:I.Mail,w:500,h:520,content:ContactApp},{id:'settings',label:'Settings',icon:I.Gear,w:500,h:480,content:SettingsApp},{id:'browser',label:'Browser',icon:I.Globe,w:800,h:600,content:BrowserApp},{id:'explorer',label:'File Explorer',icon:I.FolderF,w:700,h:500,content:ExplorerApp}];
+const APPS=[{id:'about',label:'About Me',icon:I.User,w:820,h:540,content:AboutApp},{id:'projects',label:'Projects',icon:I.Folder,w:720,h:540,content:ProjectsApp},{id:'skills',label:'Skills',icon:I.Code,w:580,h:560,content:SkillsApp},{id:'terminal',label:'Terminal',icon:I.Term,w:640,h:420,content:TerminalApp},{id:'contact',label:'Contact',icon:I.Mail,w:500,h:520,content:ContactApp},{id:'settings',label:'Settings',icon:I.Gear,w:500,h:480,content:SettingsApp},{id:'browser',label:'Browser',icon:I.Globe,w:800,h:600,content:BrowserApp},{id:'explorer',label:'File Explorer',icon:I.FolderF,w:700,h:500,content:ExplorerApp}];
 const SHORTCUTS=[
   {id:'about',label:'About Me',icon:I.User,color:'#fbbf24',type:'app'},
   {id:'explorer',label:'Files',icon:I.FolderF,color:'#4a9eff',type:'app'},
