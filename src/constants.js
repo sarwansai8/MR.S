@@ -22,10 +22,9 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture',
     status: 'Complete',
     highlight: 'Zero-Trust Medical Threat Management System',
-    demo: 'https://github.com/sarwansai8/-Real-Time-Cyber-Threat-Management-Using-a-Modular-High-Interaction-Honeypot-Architecture#installation',
+    demo: 'https://hosptialhoneypot.netlify.app/',
     accentColor: '#3b82f6',
-    local: true,
-    demoLabel: 'Setup'
+    local: false
   },
   { 
     id: 'p_cybertrap', 
@@ -92,7 +91,7 @@ export const PROJECTS = [
     link: 'https://github.com/sarwansai8/Cyber-Course',
     status: 'Complete',
     highlight: 'Full-Stack MERN Learning Portal',
-    demo: 'https://github.com/sarwansai8/Cyber-Course',
+    demo: 'https://course-honeypot.netlify.app/courses',
     accentColor: '#06b6d4',
     local: false
   },
