@@ -24,7 +24,8 @@ export const PROJECTS = [
     highlight: 'Zero-Trust Medical Threat Management System',
     demo: 'https://hosptialhoneypot.netlify.app/',
     accentColor: '#3b82f6',
-    local: false
+    local: false,
+    demoLabel: 'Live Demo'
   },
   { 
     id: 'p_cybertrap', 
@@ -93,7 +94,8 @@ export const PROJECTS = [
     highlight: 'Full-Stack MERN Learning Portal',
     demo: 'https://course-honeypot.netlify.app/courses',
     accentColor: '#06b6d4',
-    local: false
+    local: false,
+    demoLabel: 'Live Demo'
   },
   { 
     id: 'p_forensicax', 
