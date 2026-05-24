@@ -344,7 +344,7 @@ const SHORTCUTS=[
   {id:'browser',label:'Browser',icon:I.Globe,color:'#38bdf8',type:'app'},
   {id:'resume',label:'Resume',icon:I.Resume,color:'#4a9eff',type:'link',href:'https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link'},
   {id:'github',label:'GitHub',icon:I.GH,color:'#e4e4e8',type:'link',href:'https://github.com/sarwansai8'},
-  {id:'linkedin',label:'LinkedIn',icon:I.LI,color:'#0a66c2',type:'link',href:'https://linkedin.com/in/maddipati-sarwansai'}
+  {id:'linkedin',label:'LinkedIn',icon:I.LI,color:'#0a66c2',type:'link',href:'https://linkedin.com/in/sarwansai'}
 ];
 const DOCK=[{id:'explorer',icon:I.FolderF,label:'Files',color:'#fbbf24'},{id:'browser',icon:I.Globe,label:'Browser',color:'#38bdf8'},{id:'terminal',icon:I.Term,label:'Terminal',color:'#e4e4e8'},{id:'projects',icon:I.Code,label:'Projects',color:'#4a9eff'},{id:'skills',icon:I.Grid,label:'Skills',color:'#e4e4e8'},{id:'contact',icon:I.Mail,label:'Mail',color:'#e4e4e8'},{id:'_sep'},{id:'settings',icon:I.Gear,label:'Settings',color:'#888'},{id:'_grid',icon:I.Grid,label:'Apps',color:'#888'}];
 

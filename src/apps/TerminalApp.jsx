@@ -9,7 +9,7 @@ const CMDS = {
   date: () => [{ t: new Date().toString(), c: 'out' }],
   skills: () => SP.map(s => ({ t: `  ${s.c}: ${s.i.join(' · ')}`, c: 'out' })),
   projects: () => PROJECTS.map(p => ({ t: `  ${p.e} ${p.title}`, c: 'out' })),
-  contact: () => [{ t: '  Phone: +91 9030118006\n  Email: sarwansai483@gmail.com\n  GitHub: github.com/sarwansai8\n  LinkedIn: linkedin.com/in/maddipati-sarwansai', c: 'out' }],
+  contact: () => [{ t: '  Phone: +91 9030118006\n  Email: sarwansai483@gmail.com\n  GitHub: github.com/sarwansai8\n  LinkedIn: linkedin.com/in/sarwansai', c: 'out' }],
   uname: () => [{ t: `${BRAND} OS 2.0.0 x86_64 React/19.x Vite/8.x`, c: 'out' }],
   sudo: () => [{ t: 'Nice try 😏', c: 'err' }],
   neofetch: () => [{ t: `  ╭──────────╮   ${FULL_NAME.toLowerCase().replace(/ /g, '-')}@${OS_ID}\n  │  ▄▀▀▀▄  │   OS: ${BRAND} OS 2.0\n  │ █ ◉ ◉ █ │   Host: React 19.x\n  │  ▀▄▄▄▀  │   Shell: terminal.jsx\n  ╰──────────╯   Theme: Adaptive\n                  Uptime: ∞`, c: 'asc' }]
@@ -68,6 +68,33 @@ export default function TerminalApp({ openApp }) {
         sHI(-1);
         sI('');
       }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const raw = inp.trim();
+      const parts = raw.split(' ').filter(Boolean);
+      if (parts.length === 1) {
+        const list = Object.keys(CMDS).concat(['clear', 'history', 'echo', 'open', 'cat', 'theme', 'curl']);
+        const match = list.find(c => c.startsWith(parts[0].toLowerCase()));
+        if (match) sI(match + ' ');
+      } else if (parts.length === 2) {
+        const cmd = parts[0].toLowerCase();
+        const arg = parts[1].toLowerCase();
+        if (cmd === 'cat') {
+          const files = ['README.md', 'resume.pdf', 'secret.txt'];
+          const match = files.find(f => f.toLowerCase().startsWith(arg));
+          if (match) sI(`cat ${match}`);
+        } else if (cmd === 'open') {
+          const apps = ['about', 'projects', 'skills', 'terminal', 'contact', 'settings', 'browser', 'explorer'];
+          const match = apps.find(a => a.toLowerCase().startsWith(arg));
+          if (match) sI(`open ${match}`);
+        } else if (cmd === 'theme') {
+          const params = ['dark', 'light', 'hacker', 'neon', 'matrix', 'solid', 'wireframe'];
+          const match = params.find(p => p.toLowerCase().startsWith(arg));
+          if (match) sI(`theme ${match}`);
+        } else if (cmd === 'curl') {
+          if ('github'.startsWith(arg)) sI('curl github');
+        }
+      }
     }
   };
   
@@ -116,7 +143,7 @@ export default function TerminalApp({ openApp }) {
     } else if (cmd === 'cat') {
       const f = args[0];
       if (!f) out = [{ t: 'cat: missing file operand', c: 'err' }];
-      else if (f === 'README.md') out = [{ t: '# Maddipati Sarwansai\nCybersecurity student building secure solutions.\nType "projects" to see my work.', c: 'out' }];
+      else if (f === 'README.md') out = [{ t: '# Sarwansai Maddipati\nSoftware Engineer & Cybersecurity Professional.\nType "projects" to see my work.', c: 'out' }];
       else if (f === 'resume.pdf') out = [{ t: 'Error: Cannot display binary file in terminal. Try "open resume"', c: 'err' }];
       else if (f === 'secret.txt') out = [{ t: 'hunter2', c: 'ok' }];
       else out = [{ t: `cat: ${f}: No such file or directory`, c: 'err' }];
@@ -136,7 +163,7 @@ export default function TerminalApp({ openApp }) {
         out = [{ t: 'Fetching latest profile data from GitHub...', c: 'inf' }];
         sT({ l: out, i: 0, c: 0 });
         try {
-          const res = await fetch('https://api.github.com/users/sarwansai');
+          const res = await fetch('https://api.github.com/users/sarwansai8');
           const data = await res.json();
           const r = [
             { t: `User: ${data.name || data.login}`, c: 'ok' },

@@ -69,7 +69,7 @@ export default function AboutApp({ openApp }) {
             <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub">
               <I.GH />
             </a>
-            <a href="https://linkedin.com/in/maddipati-sarwansai" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
+            <a href="https://linkedin.com/in/sarwansai" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
               <I.LI />
             </a>
           </div>
