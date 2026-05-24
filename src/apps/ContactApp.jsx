@@ -3,6 +3,17 @@ import { useN } from '../components/NotificationContext.jsx';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// =========================================================================
+// REAL OPSEC SECURITY CONFIGURATION (FormSubmit Token)
+// To prevent email harvesting, automated bot spam, and browser-DevTools leaks:
+// 1. Go to https://formsubmit.co
+// 2. Enter sarwansai483@gmail.com and click submit
+// 3. Check your Gmail inbox for the confirmation email and copy your hash token
+// 4. Replace the email string below with your secure hash token
+// (e.g. const FORMSUBMIT_KEY = "8f4a2c1b9e7d3f6a0c5b8d2e4f1a9c7b";)
+// =========================================================================
+const FORMSUBMIT_KEY = "sarwansai483@gmail.com"; 
+
 export default function ContactApp() {
   const [f, sF] = useState({ name: '', email: '', msg: '', _honey: '' });
   const [err, sE] = useState({});
@@ -32,11 +43,7 @@ export default function ContactApp() {
     if (Object.keys(c).length === 0) {
       sS('loading');
       
-      // Obfuscated email reconstruction to block basic static scrapers and harvesters.
-      // Pro-tip: Swap this with a FormSubmit unique token for 100% OPSEC!
-      const targetUser = 'sarwansai483';
-      const targetDomain = 'gmail.com';
-      const endpoint = `https://formsubmit.co/ajax/${targetUser}@${targetDomain}`;
+      const endpoint = `https://formsubmit.co/ajax/${FORMSUBMIT_KEY}`;
 
       fetch(endpoint, {
         method: "POST",
