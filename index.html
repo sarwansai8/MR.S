@@ -3,34 +3,78 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; img-src 'self' data: https:; connect-src 'self' https: ws: wss:;" />
-    <meta name="description" content="Portfolio of Maddipati Sarwansai — Cybersecurity Student & Aspiring Professional. An interactive desktop OS experience." />
+    <title>Sarwansai Maddipati — Software Engineer & Cybersecurity Professional</title>
+    <meta name="description" content="Sarwansai Maddipati — Software Engineer & Cybersecurity Professional specializing in ethical hacking, penetration testing, and secure web application development. B.Tech KL University 2026." />
     <meta name="theme-color" content="#000000" />
-    <meta name="author" content="Maddipati Sarwansai" />
-    <meta name="keywords" content="Maddipati Sarwansai, cybersecurity, portfolio, ethical hacking, penetration testing, web development" />
+    <meta name="author" content="Sarwansai Maddipati" />
+    <meta name="robots" content="index, follow" />
 
     <!-- Open Graph (LinkedIn, WhatsApp, Facebook) -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="MR.S · Portfolio OS" />
-    <meta property="og:description" content="Interactive desktop OS portfolio of Maddipati Sarwansai — Cybersecurity Student & Aspiring Professional." />
+    <meta property="og:title" content="Sarwansai Maddipati — Portfolio" />
+    <meta property="og:description" content="Software Engineer & Cybersecurity Professional. Interactive desktop OS portfolio showcasing projects, skills, and certifications." />
     <meta property="og:url" content="https://sarwansai1.netlify.app" />
-    <meta property="og:site_name" content="MR.S Portfolio" />
+    <meta property="og:site_name" content="Sarwansai Maddipati Portfolio" />
+    <meta property="og:image" content="https://sarwansai1.netlify.app/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MR.S · Portfolio OS" />
-    <meta name="twitter:description" content="Interactive desktop OS portfolio of Maddipati Sarwansai — Cybersecurity Student." />
+    <meta name="twitter:title" content="Sarwansai Maddipati — Portfolio" />
+    <meta name="twitter:description" content="Software Engineer & Cybersecurity Professional. Interactive desktop OS portfolio." />
+    <meta name="twitter:image" content="https://sarwansai1.netlify.app/og-preview.png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sarwansai Maddipati",
+      "jobTitle": "Software Engineer & Cybersecurity Professional",
+      "url": "https://sarwansai1.netlify.app",
+      "email": "sarwansai483@gmail.com",
+      "sameAs": [
+        "https://linkedin.com/in/sarwansai",
+        "https://github.com/sarwansai8"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "KL University"
+      },
+      "knowsAbout": ["Cybersecurity", "Ethical Hacking", "Penetration Testing", "React.js", "Node.js", "Python"]
+    }
+    </script>
 
     <link rel="canonical" href="https://sarwansai1.netlify.app" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <title>MR.S · Portfolio OS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- HTML-level boot screen (renders BEFORE JS loads — eliminates white flash) -->
+    <div id="html-boot" style="position:fixed;inset:0;z-index:999999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;font-family:'Inter',system-ui,sans-serif">
+      <div style="font-size:clamp(2rem,6vw,4rem);font-weight:900;letter-spacing:0.3em;color:#fff;text-shadow:0 0 20px rgba(255,255,255,0.8),0 0 60px rgba(255,255,255,0.4)">MR.S</div>
+      <div style="width:200px;height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden"><div style="height:100%;width:30%;background:rgba(255,255,255,0.6);border-radius:2px;animation:hbb 2s ease-in-out infinite"></div></div>
+      <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);font-family:monospace;letter-spacing:0.1em">Loading system...</div>
+      <style>@keyframes hbb{0%{width:10%;margin-left:0}50%{width:60%;margin-left:20%}100%{width:10%;margin-left:90%}}</style>
+    </div>
+
+    <noscript>
+      <div style="position:fixed;inset:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:system-ui;text-align:center;padding:2rem;gap:1rem">
+        <h1 style="font-size:2rem;font-weight:900;letter-spacing:0.3em">MR.S</h1>
+        <p style="color:rgba(255,255,255,0.6);max-width:400px">This portfolio requires JavaScript to run. Please enable JavaScript in your browser.</p>
+        <a href="mailto:sarwansai483@gmail.com" style="color:#4a9eff;text-decoration:none">Contact me directly → sarwansai483@gmail.com</a>
+      </div>
+    </noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      // Remove HTML boot screen once React mounts, or after 5s safety timeout
+      setTimeout(function(){var b=document.getElementById('html-boot');if(b){b.style.transition='opacity 0.5s';b.style.opacity='0';setTimeout(function(){b.remove()},500)}},5000);
+    </script>
   </body>
 </html>

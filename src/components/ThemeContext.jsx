@@ -5,51 +5,55 @@ const ThemeContext = createContext();
 export const THEMES = {
   dark: {
     '--bg': '#000000',
-    '--bg-panel': 'rgba(12, 12, 12, 0.72)',
-    '--bg-dock': 'rgba(16, 16, 20, 0.65)',
-    '--bg-window': 'rgba(18, 18, 22, 0.88)',
-    '--bg-titlebar': 'rgba(24, 24, 28, 0.95)',
-    '--text': '#e8e8e8',
-    '--text-dim': '#777',
-    '--text-muted': '#555',
-    '--border': 'rgba(255, 255, 255, 0.06)',
-    '--border-focus': 'rgba(255, 255, 255, 0.2)',
+    '--bg-panel': 'rgba(8,8,12,0.78)',
+    '--bg-dock': 'rgba(10,10,14,0.6)',
+    '--bg-win': 'rgba(14,14,18,0.92)',
+    '--bg-tb': 'rgba(20,20,24,0.96)',
+    '--bg-input': 'rgba(255,255,255,0.035)',
+    '--text': '#e4e4e8',
+    '--text-d': '#6b6b78',
+    '--text-m': '#44444f',
+    '--brd': 'rgba(255,255,255,0.05)',
+    '--brd-f': 'rgba(255,255,255,0.18)',
   },
   light: {
     '--bg': '#f3f4f6',
-    '--bg-panel': 'rgba(255, 255, 255, 0.72)',
-    '--bg-dock': 'rgba(240, 240, 245, 0.65)',
-    '--bg-window': 'rgba(250, 250, 250, 0.88)',
-    '--bg-titlebar': 'rgba(220, 220, 225, 0.95)',
+    '--bg-panel': 'rgba(255,255,255,0.72)',
+    '--bg-dock': 'rgba(240,240,245,0.65)',
+    '--bg-win': 'rgba(250,250,250,0.88)',
+    '--bg-tb': 'rgba(220,220,225,0.95)',
+    '--bg-input': 'rgba(0,0,0,0.04)',
     '--text': '#111827',
-    '--text-dim': '#4b5563',
-    '--text-muted': '#9ca3af',
-    '--border': 'rgba(0, 0, 0, 0.1)',
-    '--border-focus': 'rgba(0, 0, 0, 0.3)',
+    '--text-d': '#4b5563',
+    '--text-m': '#9ca3af',
+    '--brd': 'rgba(0,0,0,0.1)',
+    '--brd-f': 'rgba(0,0,0,0.3)',
   },
   hacker: {
     '--bg': '#020202',
-    '--bg-panel': 'rgba(0, 15, 0, 0.85)',
-    '--bg-dock': 'rgba(0, 10, 0, 0.75)',
-    '--bg-window': 'rgba(0, 5, 0, 0.92)',
-    '--bg-titlebar': 'rgba(0, 20, 0, 0.95)',
+    '--bg-panel': 'rgba(0,15,0,0.85)',
+    '--bg-dock': 'rgba(0,10,0,0.75)',
+    '--bg-win': 'rgba(0,5,0,0.92)',
+    '--bg-tb': 'rgba(0,20,0,0.95)',
+    '--bg-input': 'rgba(0,255,0,0.04)',
     '--text': '#00ff00',
-    '--text-dim': '#00aa00',
-    '--text-muted': '#005500',
-    '--border': 'rgba(0, 255, 0, 0.2)',
-    '--border-focus': 'rgba(0, 255, 0, 0.5)',
+    '--text-d': '#00aa00',
+    '--text-m': '#005500',
+    '--brd': 'rgba(0,255,0,0.2)',
+    '--brd-f': 'rgba(0,255,0,0.5)',
   },
   neon: {
     '--bg': '#070110',
-    '--bg-panel': 'rgba(18, 5, 29, 0.72)',
-    '--bg-dock': 'rgba(23, 7, 36, 0.65)',
-    '--bg-window': 'rgba(20, 4, 32, 0.90)',
-    '--bg-titlebar': 'rgba(28, 8, 44, 0.95)',
+    '--bg-panel': 'rgba(18,5,29,0.72)',
+    '--bg-dock': 'rgba(23,7,36,0.65)',
+    '--bg-win': 'rgba(20,4,32,0.90)',
+    '--bg-tb': 'rgba(28,8,44,0.95)',
+    '--bg-input': 'rgba(255,0,127,0.04)',
     '--text': '#ff79c6',
-    '--text-dim': '#00f5ff',
-    '--text-muted': '#a26fc0',
-    '--border': 'rgba(0, 245, 255, 0.2)',
-    '--border-focus': 'rgba(255, 0, 127, 0.5)',
+    '--text-d': '#00f5ff',
+    '--text-m': '#a26fc0',
+    '--brd': 'rgba(0,245,255,0.2)',
+    '--brd-f': 'rgba(255,0,127,0.5)',
   }
 };
 
@@ -62,9 +66,9 @@ export const ACCENTS = {
 };
 
 export function ThemeProvider({ children }) {
-  const [themeMode, setThemeMode] = useState('dark'); // dark, light, hacker
+  const [themeMode, setThemeMode] = useState('dark');
   const [accent, setAccent] = useState('blue');
-  const [bgType, setBgType] = useState('wireframe'); // wireframe, matrix, solid, gradient
+  const [bgType, setBgType] = useState('wireframe');
   const [blurIntensity, setBlurIntensity] = useState(24);
 
   useEffect(() => {
@@ -77,11 +81,18 @@ export function ThemeProvider({ children }) {
     }
     
     // Apply accent
-    root.style.setProperty('--accent-blue', ACCENTS[accent]);
+    root.style.setProperty('--b', ACCENTS[accent]);
     
     // Apply blur
-    root.style.setProperty('--glass-blur', `${blurIntensity}px`);
+    root.style.setProperty('--blur', `${blurIntensity}px`);
     
+    // Remove HTML boot screen on first theme apply
+    const htmlBoot = document.getElementById('html-boot');
+    if (htmlBoot) {
+      htmlBoot.style.transition = 'opacity 0.5s';
+      htmlBoot.style.opacity = '0';
+      setTimeout(() => htmlBoot.remove(), 500);
+    }
   }, [themeMode, accent, blurIntensity]);
 
   return (

@@ -29,7 +29,7 @@ export default function TerminalApp({ openApp }) {
   const iR = useRef(null);
   const sR = useRef(null);
   
-  const { theme, setTheme, bgType, setBgType } = useTheme();
+  const { themeMode, setThemeMode, bgType, setBgType } = useTheme();
   
   useEffect(() => {
     if (sR.current) sR.current.scrollTop = sR.current.scrollHeight;
@@ -150,7 +150,7 @@ export default function TerminalApp({ openApp }) {
     } else if (cmd === 'theme') {
       const mode = args[0];
       if (['dark', 'light', 'hacker', 'neon'].includes(mode)) {
-        setTheme(mode);
+        setThemeMode(mode);
         out = [{ t: `Theme changed to ${mode}`, c: 'ok' }];
       } else if (['matrix', 'solid', 'wireframe'].includes(mode)) {
         setBgType(mode);

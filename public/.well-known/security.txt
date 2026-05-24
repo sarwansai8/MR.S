@@ -1,0 +1,4 @@
+Contact: mailto:sarwansai483@gmail.com
+Expires: 2026-12-31T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://sarwansai1.netlify.app/.well-known/security.txt
