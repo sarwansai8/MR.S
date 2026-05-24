@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { I } from '../IconSet.jsx';
-import { BIO, INITIALS, BRAND, FULL_NAME, ROLE, SP, PROJECTS, EDUCATION, STATS } from '../constants.js';
+import { BIO, INITIALS, FULL_NAME, ROLE, EDUCATION, STATS, PROJECTS } from '../constants.js';
 
-function Counter({ value, suffix, duration = 1000 }) {
+function Counter({ value, suffix, duration = 1200 }) {
   const [count, setCount] = useState(0);
   
   useEffect(() => {
@@ -14,9 +14,9 @@ function Counter({ value, suffix, duration = 1000 }) {
     }
     if (end === 0) return;
     
-    const stepTime = Math.max(Math.floor(duration / end), 15);
+    const stepTime = Math.max(Math.floor(duration / end), 12);
     const timer = setInterval(() => {
-      start += Math.max(Math.floor(end / 40), 1);
+      start += Math.max(Math.floor(end / 30), 1);
       if (start >= end) {
         clearInterval(timer);
         setCount(end);
@@ -33,14 +33,50 @@ function Counter({ value, suffix, duration = 1000 }) {
 
 export default function AboutApp({ openApp }) {
   const [activeTab, setActiveTab] = useState('profile'); // 'profile' | 'education' | 'credentials'
+  const [terminalLines, setTerminalLines] = useState([]);
+  
+  const logs = [
+    "Initializing Secure SSH Shell...",
+    "Authentication successful [Level 3 - Root].",
+    "Loading cybersecurity sandbox environment...",
+    "✓ Firewall rules armed (Honeypots active)",
+    "Verifying EC-Council CEH accreditation...",
+    "✓ CEH Credentials Verified [ACTIVE]",
+    "Running network state audit: 0 active threats."
+  ];
+
+  useEffect(() => {
+    let currentLine = 0;
+    // Fast initial print, then slow down
+    const printLine = () => {
+      if (currentLine < logs.length) {
+        setTerminalLines(prev => [...prev, logs[currentLine]]);
+        currentLine++;
+        setTimeout(printLine, currentLine === 1 ? 400 : 800);
+      }
+    };
+    printLine();
+  }, []);
+
+  // Dynamically calculate project counts
+  const dynamicStats = STATS.map(s => {
+    if (s.label === 'Projects Completed' || s.label.toLowerCase().includes('projects')) {
+      return { ...s, value: PROJECTS.length };
+    }
+    return s;
+  });
 
   return (
-    <div className="ab ab-polished">
-      <div className="ab-hero-polished">
-        {/* Left Column: Profile Card */}
-        <div className="ab-left">
+    <div className="ab-polished">
+      {/* Left Column: Tactical Profiler & Active Diagnostics */}
+      <div className="ab-left">
+        {/* Profile Card */}
+        <div className="ab-badge-container">
           <div className="ab-avatar-container">
-            <div className="ab-av-polished">{INITIALS}</div>
+            <div className="ab-av-polished">
+              {INITIALS}
+              <div className="ab-avatar-scanner"></div>
+            </div>
             <span className="ab-status-pulse"></span>
           </div>
           
@@ -49,170 +85,198 @@ export default function AboutApp({ openApp }) {
           
           <div className="ab-badge-row">
             <span className="ab-badge active-hiring">
-              <span className="status-dot green"></span> Active Hiring
+              <span className="status-dot green"></span> SECURE SHIELD
             </span>
             <span className="ab-badge learning">
-              <span className="status-dot purple"></span> Threat Modeling
+              <span className="status-dot purple"></span> B.TECH 2026
             </span>
-          </div>
-
-          <div className="ab-ctas">
-            <a className="btn primary glow-btn" href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-              <I.Resume /> Resume
-            </a>
-            <button className="btn outline-btn" onClick={e => { e.preventDefault(); if (openApp) openApp('contact'); }}>
-              <I.Mail /> Connect
-            </button>
-          </div>
-
-          <div className="ab-socials-polished" style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-            <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="social-link" style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--brd)', borderRadius: '8px', color: 'var(--text-d)' }}>
-              <I.GH />
-            </a>
-            <a href="https://linkedin.com/in/sarwansai" target="_blank" rel="noopener noreferrer" className="social-link" style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--brd)', borderRadius: '8px', color: 'var(--text-d)' }}>
-              <I.LI />
-            </a>
-          </div>
-
-          {/* Upgraded Cyber Security Diagnostic Console */}
-          <div className="ab-security-widget">
-            <div className="ab-security-header">
-              <span className="status-dot green" style={{ width: '5px', height: '5px' }}></span> SECURE KERNEL DIAGNOSTIC
-            </div>
-            <div className="ab-security-logs">
-              <div><span className="sec-cmd">$</span> whoami</div>
-              <div className="sec-out">sarwansai8 (Level_3)</div>
-              <div><span className="sec-cmd">$</span> check --credentials</div>
-              <div className="sec-out-alert">✓ CEH Certified [Verified]</div>
-              <div><span className="sec-cmd">$</span> sys --status</div>
-              <div className="sec-out-warn">🛡️ Firewalls & CSP Hardened</div>
-            </div>
           </div>
         </div>
 
-        {/* Right Column: Dynamic Tabs and Details */}
-        <div className="ab-right">
-          {/* Tab Navigation */}
-          <div className="ab-tabs">
-            <button 
-              className={`ab-tab-btn ${activeTab === 'profile' ? 'active' : ''}`} 
-              onClick={() => setActiveTab('profile')}
-            >
-              👤 Profile Summary
-            </button>
-            <button 
-              className={`ab-tab-btn ${activeTab === 'education' ? 'active' : ''}`} 
-              onClick={() => setActiveTab('education')}
-            >
-              🎓 Academic History
-            </button>
-            <button 
-              className={`ab-tab-btn ${activeTab === 'credentials' ? 'active' : ''}`} 
-              onClick={() => setActiveTab('credentials')}
-            >
-              🛡️ Verifications & Certs
-            </button>
+        {/* Action Buttons */}
+        <div className="ab-ctas">
+          <a href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
+            <I.Resume /> Resume CV
+          </a>
+          <button onClick={e => { e.preventDefault(); if (openApp) openApp('contact'); }}>
+            <I.Mail /> Contact
+          </button>
+        </div>
+
+        {/* Social Links */}
+        <div className="ab-socials-polished">
+          <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub">
+            <I.GH />
+          </a>
+          <a href="https://linkedin.com/in/sarwansai" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
+            <I.LI />
+          </a>
+        </div>
+
+        {/* Tactical Shell Console */}
+        <div className="ab-security-widget">
+          <div className="ab-security-header">
+            <span className="status-dot green"></span> DIAGNOSTIC SECURITY SHELL
           </div>
+          <div className="ab-security-logs">
+            {terminalLines.map((line, idx) => (
+              <div key={idx} className={
+                line.includes('✓') ? 'sec-out' :
+                line.includes('🔒') || line.includes('Level') ? 'sec-out-alert' :
+                line.startsWith('Initializing') ? 'sec-cmd' : 'sec-out'
+              }>
+                {line.startsWith('Initializing') ? <span className="sec-cmd">$ </span> : ''}
+                {line}
+              </div>
+            ))}
+            {terminalLines.length < logs.length && <span className="sec-cursor"></span>}
+          </div>
+        </div>
+      </div>
 
-          {/* Tab Content */}
-          <div className="ab-tab-content scrollbar-custom">
-            {activeTab === 'profile' && (
-              <div className="tab-pane animate-fade-in">
-                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px' }}>About Me</h3>
-                <p className="ab-b bio-styled" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--brd)', borderRadius: '8px', padding: '10px 12px' }}>{BIO}</p>
+      {/* Right Column: Dynamic HUD Content Area */}
+      <div className="ab-right">
+        {/* Navigation Bar */}
+        <div className="ab-tabs">
+          <button 
+            className={`ab-tab-btn ${activeTab === 'profile' ? 'active' : ''}`} 
+            onClick={() => setActiveTab('profile')}
+          >
+            👤 Dossier Summary
+          </button>
+          <button 
+            className={`ab-tab-btn ${activeTab === 'education' ? 'active' : ''}`} 
+            onClick={() => setActiveTab('education')}
+          >
+            🎓 Academic Timeline
+          </button>
+          <button 
+            className={`ab-tab-btn ${activeTab === 'credentials' ? 'active' : ''}`} 
+            onClick={() => setActiveTab('credentials')}
+          >
+            🛡️ Certifications
+          </button>
+        </div>
 
-                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px', marginTop: '14px' }}>Core Specializations</h3>
-                <div className="ab-highlights-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
-                  <div className="highlight-item" style={{ borderLeft: '3px solid var(--accent-rose)', background: 'rgba(225,29,72,0.02)' }}>
+        {/* Scrollable Information Body */}
+        <div className="ab-tab-content scrollbar-custom">
+          
+          {/* PROFILE SUMMARY */}
+          {activeTab === 'profile' && (
+            <div className="tab-pane animate-fade-in">
+              <div className="bio-styled-container">
+                <span className="quote-mark">“</span>
+                <p className="bio-styled">{BIO}</p>
+              </div>
+
+              <h3 className="section-subtitle">Operational Specializations</h3>
+              <div className="ab-highlights-grid">
+                <div className="highlight-item highlight-cyber">
+                  <div className="hl-header">
                     <span className="hl-icon">🛡️</span>
-                    <div className="hl-text">
-                      <strong>Offensive & Defensive Cyber</strong>
-                      <span>Ethical Hacking, Penetration Testing, Intrusion Sniffing (Nmap/Wireshark).</span>
-                    </div>
+                    <strong>Active Cybersecurity Operations</strong>
                   </div>
-                  <div className="highlight-item" style={{ borderLeft: '3px solid var(--accent-blue)', background: 'rgba(59,130,246,0.02)' }}>
+                  <p className="hl-desc">Defensive threat mapping (Nmap), intrusion analysis (Wireshark), deep packet capture inspect, multi-layered honeypots setup, and incident containment protocols.</p>
+                </div>
+                <div className="highlight-item highlight-dev">
+                  <div className="hl-header">
                     <span className="hl-icon">💻</span>
-                    <div className="hl-text">
-                      <strong>Secure Software Engineering</strong>
-                      <span>Zero-Trust Web Protocols, Cryptography APIs, and secure MERN stacks.</span>
-                    </div>
+                    <strong>Secure Full-Stack Engineering</strong>
                   </div>
-                </div>
-
-                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px', marginTop: '14px' }}>Technical Diagnostics</h3>
-                <div className="ab-stats-polished" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
-                  {STATS.map((s, idx) => (
-                    <div key={idx} className="stat-card" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-                      <div className="stat-value" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#fff' }}>
-                        <Counter value={s.value} suffix={s.suffix} />
-                      </div>
-                      <div className="stat-label" style={{ fontSize: '0.62rem', color: 'var(--text-m)', marginTop: '2px' }}>{s.label}</div>
-                    </div>
-                  ))}
+                  <p className="hl-desc">Constructing modular web architectures with React, Node.js API pre-hardening, secure storage models (MongoDB/Supabase), on-chain cryptographic proof tags, and secure deployment sandboxing.</p>
                 </div>
               </div>
-            )}
 
-            {activeTab === 'education' && (
-              <div className="tab-pane animate-fade-in">
-                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '12px' }}>Academic Timeline</h3>
-                <div className="timeline-container" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  {EDUCATION.map((edu, idx) => (
-                    <div key={idx} className="timeline-item" style={{ display: 'flex', gap: '12px', borderLeft: '2px solid var(--brd)', paddingLeft: '14px', position: 'relative' }}>
-                      <div style={{ position: 'absolute', left: '-6px', top: '2px', width: '10px', height: '10px', borderRadius: '50%', background: 'var(--accent-blue)', border: '2px solid var(--bg-win)' }} />
-                      <div className="timeline-content" style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span className="timeline-year" style={{ fontSize: '0.75rem', fontWeight: 'bold', color: 'var(--text-m)' }}>{edu.year}</span>
-                        <h4 style={{ fontSize: '0.88rem', fontWeight: 'bold', color: '#fff', margin: '2px 0 1px' }}>{edu.degree}</h4>
-                        <h5 style={{ fontSize: '0.8rem', color: 'var(--text-d)', fontWeight: 'normal', margin: 0 }}>{edu.institution}</h5>
-                        {edu.specialization && (
-                          <div className="timeline-spec" style={{ alignSelf: 'flex-start' }}>{edu.specialization}</div>
-                        )}
-                        <p style={{ fontSize: '0.78rem', color: 'var(--text-d)', margin: '4px 0 0', lineHeight: '1.5' }}>{edu.details}</p>
-                      </div>
+              <h3 className="section-subtitle">Diagnostics telemetry</h3>
+              <div className="ab-stats-polished">
+                {dynamicStats.map((s, idx) => (
+                  <div key={idx} className="stat-card">
+                    <div className="stat-chip-glow"></div>
+                    <div className="stat-value">
+                      <Counter value={s.value} suffix={s.suffix} />
                     </div>
-                  ))}
-                </div>
+                    <div className="stat-label">{s.label}</div>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
+          )}
 
-            {activeTab === 'credentials' && (
-              <div className="tab-pane animate-fade-in">
-                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px' }}>Professional Accreditations</h3>
-                <p className="creds-intro" style={{ fontSize: '0.8rem', color: 'var(--text-d)', marginBottom: '12px' }}>Verified credentials proving foundational competence in secure computing, networking diagnostics, and systems defense.</p>
-                
-                <div className="cert-cards-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                  <div className="cert-card-polished" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--brd)', borderRadius: '10px', padding: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <div className="cert-icon" style={{ fontSize: '1.8rem' }}>🛡️</div>
-                    <div className="cert-details" style={{ display: 'flex', flexDirection: 'column' }}>
-                      <h4 style={{ fontSize: '0.82rem', color: '#fff', margin: '0 0 2px' }}>Certified Ethical Hacker (CEH)</h4>
-                      <p style={{ fontSize: '0.7rem', color: 'var(--text-d)', margin: '0 0 6px' }}>EC-Council Professional Certification</p>
-                      <a href="https://drive.google.com/file/d/1M5bAEPY4Lrt_dl1njPtj_6VnZZFGbw2v/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn" style={{ alignSelf: 'flex-start', fontSize: '0.7rem', color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 'bold' }}>
-                        Verify Credential ↗
-                      </a>
+          {/* EDUCATION & TIMELINE */}
+          {activeTab === 'education' && (
+            <div className="tab-pane animate-fade-in">
+              <h3 className="section-subtitle">Academic Milestones</h3>
+              <div className="timeline-container">
+                {EDUCATION.map((edu, idx) => (
+                  <div key={idx} className="timeline-item">
+                    <div className="timeline-dot" />
+                    <div className="timeline-content">
+                      <div className="timeline-header-row">
+                        <span className="timeline-year">{edu.year}</span>
+                        {edu.specialization && edu.specialization.includes('7.80') ? (
+                          <span className="gpa-badge">CGPA: 7.80/10.0</span>
+                        ) : null}
+                      </div>
+                      <h4 className="timeline-degree">{edu.degree}</h4>
+                      <h5 className="timeline-institution">{edu.institution}</h5>
+                      {edu.specialization && (
+                        <div style={{ color: '#00f0ff', fontSize: '0.7rem', marginTop: '3px', fontWeight: '600', fontFamily: 'monospace' }}>
+                          {edu.specialization.split(' (')[0]}
+                        </div>
+                      )}
+                      <p className="timeline-desc">{edu.details}</p>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-                  <div className="cert-card-polished" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--brd)', borderRadius: '10px', padding: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                    <div className="cert-icon" style={{ fontSize: '1.8rem' }}>💻</div>
-                    <div className="cert-details" style={{ display: 'flex', flexDirection: 'column' }}>
-                      <h4 style={{ fontSize: '0.82rem', color: '#fff', margin: '0 0 2px' }}>Cybersecurity Career Essentials</h4>
-                      <p style={{ fontSize: '0.7rem', color: 'var(--text-d)', margin: '0 0 6px' }}>Microsoft & LinkedIn Joint Professional</p>
-                      <span className="cert-btn-static" style={{ alignSelf: 'flex-start', fontSize: '0.7rem', color: '#10b981', fontWeight: 'bold' }}>
-                        ✓ Verified on Resume
-                      </span>
-                    </div>
+          {/* CERTIFICATIONS & CREDENTIALS */}
+          {activeTab === 'credentials' && (
+            <div className="tab-pane animate-fade-in">
+              <h3 className="section-subtitle">Accredited Security Credentials</h3>
+              <p className="creds-intro">Official industry qualifications validating expert knowledge in system penetration auditing, dynamic malware detection, secure networking, and incident defense.</p>
+              
+              <div className="cert-cards-grid">
+                <div className="cert-card-polished cyber-glow-border">
+                  <div className="cert-glow-overlay"></div>
+                  <div className="cert-top-row">
+                    <span className="cert-icon">🛡️</span>
+                    <span className="cert-status-tag status-active">ACTIVE</span>
                   </div>
-                </div>
-
-                <div className="cert-cv-banner" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--brd)', borderRadius: '10px', padding: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-d)' }}>Need a fully verified, deep background?</span>
-                  <a href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="btn small primary" style={{ fontSize: '0.72rem', padding: '6px 10px' }}>
-                    Download CV (PDF)
+                  <h4>Certified Ethical Hacker (CEH)</h4>
+                  <p>Accredited by EC-Council. Validates skills in automated perimeter checks, wireless vectors assessment, vulnerability scanning, and defense rules.</p>
+                  <a href="https://drive.google.com/file/d/1M5bAEPY4Lrt_dl1njPtj_6VnZZFGbw2v/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn">
+                    Verify Credential ↗
                   </a>
                 </div>
+
+                <div className="cert-card-polished Microsoft-glow-border">
+                  <div className="cert-glow-overlay"></div>
+                  <div className="cert-top-row">
+                    <span className="cert-icon">💻</span>
+                    <span className="cert-status-tag status-verified">VERIFIED</span>
+                  </div>
+                  <h4>Career Essentials in Cybersecurity</h4>
+                  <p>Certified by Microsoft & LinkedIn. Validates knowledge in foundational defensive posture, infrastructure defense, and privacy-first configurations.</p>
+                  <span className="cert-btn-static">
+                    ✓ Verified on Resume
+                  </span>
+                </div>
               </div>
-            )}
-          </div>
+
+              <div className="cert-cv-banner">
+                <div className="banner-left">
+                  <strong>Download Full Professional Dossier</strong>
+                  <p>Get a complete comprehensive certified background résumé containing all operational milestones and courses.</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="btn primary banner-btn">
+                  Download PDF
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
