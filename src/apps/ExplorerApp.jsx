@@ -50,16 +50,16 @@ export default function ExplorerApp() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'center', padding: '0.5rem', background: 'var(--bg-titlebar)', borderBottom: '1px solid var(--border)', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', padding: '0.5rem', background: 'var(--bg-tb)', borderBottom: '1px solid var(--brd)', gap: '0.5rem' }}>
         <button className="fbtn" style={{ padding: '4px 8px', width: 'auto' }} onClick={handleUp} disabled={path.length <= 1}>
           <I.ChevronL style={{ width: '14px', height: '14px' }} />
         </button>
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', background: 'var(--bg-input)', borderRadius: '4px', border: '1px solid var(--border)', padding: '4px 8px', fontSize: '0.8rem', color: 'var(--text)' }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', background: 'var(--bg-input)', borderRadius: '4px', border: '1px solid var(--brd)', padding: '4px 8px', fontSize: '0.8rem', color: 'var(--text)' }}>
           /{path.join('/')}
         </div>
       </div>
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        <div style={{ width: '180px', borderRight: '1px solid var(--border)', background: 'rgba(0,0,0,0.2)', padding: '0.5rem 0' }}>
+        <div style={{ width: '180px', borderRight: '1px solid var(--brd)', background: 'rgba(0,0,0,0.2)', padding: '0.5rem 0' }}>
           <div style={{ padding: '0.25rem 1rem', fontSize: '0.75rem', color: 'var(--text-dim)', fontWeight: 'bold' }}>Quick Access</div>
           <div style={{ padding: '0.4rem 1rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', background: path[path.length - 1] === 'visitor' ? 'rgba(255,255,255,0.06)' : 'transparent' }} onClick={() => setPath(['home', 'visitor'])}>
             <I.User style={{ width: '16px', height: '16px' }} /> Home
@@ -87,7 +87,7 @@ export default function ExplorerApp() {
                 cursor: 'pointer',
                 borderRadius: '6px',
                 background: selected === item.name ? 'rgba(255,255,255,0.1)' : 'transparent',
-                border: selected === item.name ? '1px solid var(--border-focus)' : '1px solid transparent'
+                border: selected === item.name ? '1px solid var(--brd-f)' : '1px solid transparent'
               }}
             >
               <div style={{ color: item.isDir ? 'var(--accent-blue)' : 'var(--text-dim)' }}>

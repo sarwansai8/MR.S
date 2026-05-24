@@ -12,7 +12,7 @@ export default function SettingsApp() {
 
   return (
     <div className="cf" style={{ padding: '0 1rem' }}>
-      <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--border)', paddingBottom: '0.5rem' }}>
+      <h3 style={{ marginBottom: '1rem', borderBottom: '1px solid var(--brd)', paddingBottom: '0.5rem' }}>
         System Preferences
       </h3>
 
@@ -60,7 +60,7 @@ export default function SettingsApp() {
           value={bgType} 
           onChange={e => setBgType(e.target.value)}
           className="tf"
-          style={{ padding: '0.5rem', width: '100%', background: 'var(--bg-input)', color: 'var(--text)', border: '1px solid var(--border)', borderRadius: '4px' }}
+          style={{ padding: '0.5rem', width: '100%', background: 'var(--bg-input)', color: 'var(--text)', border: '1px solid var(--brd)', borderRadius: '4px' }}
         >
           <option value="wireframe">3D Wireframe Terrain</option>
           <option value="matrix">Matrix Rain</option>

@@ -23,9 +23,9 @@ export default function BrowserApp() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
-      <form onSubmit={go} style={{ display: 'flex', alignItems: 'center', padding: '0.5rem', background: 'var(--bg-titlebar)', borderBottom: '1px solid var(--border)', gap: '0.5rem' }}>
+      <form onSubmit={go} style={{ display: 'flex', alignItems: 'center', padding: '0.5rem', background: 'var(--bg-tb)', borderBottom: '1px solid var(--brd)', gap: '0.5rem' }}>
         <button type="button" className="fbtn" style={{ padding: '4px 8px', width: 'auto' }} onClick={() => setUrl(url)}><I.Refresh /></button>
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', background: 'var(--bg-input)', borderRadius: '4px', border: '1px solid var(--border)', padding: '0 8px' }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', background: 'var(--bg-input)', borderRadius: '4px', border: '1px solid var(--brd)', padding: '0 8px' }}>
           <I.Lock style={{ width: '12px', height: '12px', color: 'var(--text-dim)', marginRight: '6px' }} />
           <input 
             type="text" 
