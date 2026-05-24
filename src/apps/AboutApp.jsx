@@ -49,29 +49,44 @@ export default function AboutApp({ openApp }) {
           
           <div className="ab-badge-row">
             <span className="ab-badge active-hiring">
-              <span className="status-dot green"></span> Available for Hire
+              <span className="status-dot green"></span> Active Hiring
             </span>
             <span className="ab-badge learning">
-              <span className="status-dot purple"></span> Cyber Threat Analysis
+              <span className="status-dot purple"></span> Threat Modeling
             </span>
           </div>
 
           <div className="ab-ctas">
             <a className="btn primary glow-btn" href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-              <I.Resume /> View Resume
+              <I.Resume /> Resume
             </a>
             <button className="btn outline-btn" onClick={e => { e.preventDefault(); if (openApp) openApp('contact'); }}>
-              <I.Mail /> Get in Touch
+              <I.Mail /> Connect
             </button>
           </div>
 
-          <div className="ab-socials-polished">
-            <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="social-link" title="GitHub">
+          <div className="ab-socials-polished" style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+            <a href="https://github.com/sarwansai8" target="_blank" rel="noopener noreferrer" className="social-link" style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--brd)', borderRadius: '8px', color: 'var(--text-d)' }}>
               <I.GH />
             </a>
-            <a href="https://linkedin.com/in/sarwansai" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
+            <a href="https://linkedin.com/in/sarwansai" target="_blank" rel="noopener noreferrer" className="social-link" style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--brd)', borderRadius: '8px', color: 'var(--text-d)' }}>
               <I.LI />
             </a>
+          </div>
+
+          {/* Upgraded Cyber Security Diagnostic Console */}
+          <div className="ab-security-widget">
+            <div className="ab-security-header">
+              <span className="status-dot green" style={{ width: '5px', height: '5px' }}></span> SECURE KERNEL DIAGNOSTIC
+            </div>
+            <div className="ab-security-logs">
+              <div><span className="sec-cmd">$</span> whoami</div>
+              <div className="sec-out">sarwansai8 (Level_3)</div>
+              <div><span className="sec-cmd">$</span> check --credentials</div>
+              <div className="sec-out-alert">✓ CEH Certified [Verified]</div>
+              <div><span className="sec-cmd">$</span> sys --status</div>
+              <div className="sec-out-warn">🛡️ Firewalls & CSP Hardened</div>
+            </div>
           </div>
         </div>
 
@@ -89,13 +104,13 @@ export default function AboutApp({ openApp }) {
               className={`ab-tab-btn ${activeTab === 'education' ? 'active' : ''}`} 
               onClick={() => setActiveTab('education')}
             >
-              🎓 Education Timeline
+              🎓 Academic History
             </button>
             <button 
               className={`ab-tab-btn ${activeTab === 'credentials' ? 'active' : ''}`} 
               onClick={() => setActiveTab('credentials')}
             >
-              🛡️ Credentials & Certs
+              🛡️ Verifications & Certs
             </button>
           </div>
 
@@ -103,34 +118,35 @@ export default function AboutApp({ openApp }) {
           <div className="ab-tab-content scrollbar-custom">
             {activeTab === 'profile' && (
               <div className="tab-pane animate-fade-in">
-                <h3>About Me</h3>
-                <p className="ab-b bio-styled">{BIO}</p>
+                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px' }}>About Me</h3>
+                <p className="ab-b bio-styled" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--brd)', borderRadius: '8px', padding: '10px 12px' }}>{BIO}</p>
 
-                <div className="ab-highlights-grid">
-                  <div className="highlight-item">
-                    <span className="hl-icon">⚡</span>
+                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px', marginTop: '14px' }}>Core Specializations</h3>
+                <div className="ab-highlights-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px' }}>
+                  <div className="highlight-item" style={{ borderLeft: '3px solid var(--accent-rose)', background: 'rgba(225,29,72,0.02)' }}>
+                    <span className="hl-icon">🛡️</span>
                     <div className="hl-text">
-                      <strong>Ethical Hacker</strong>
-                      <span>Specialize in scanning, mapping, and honey-potting.</span>
+                      <strong>Offensive & Defensive Cyber</strong>
+                      <span>Ethical Hacking, Penetration Testing, Intrusion Sniffing (Nmap/Wireshark).</span>
                     </div>
                   </div>
-                  <div className="highlight-item">
+                  <div className="highlight-item" style={{ borderLeft: '3px solid var(--accent-blue)', background: 'rgba(59,130,246,0.02)' }}>
                     <span className="hl-icon">💻</span>
                     <div className="hl-text">
-                      <strong>Full-Stack Secure Dev</strong>
-                      <span>Building robust UIs with bulletproof backend logic.</span>
+                      <strong>Secure Software Engineering</strong>
+                      <span>Zero-Trust Web Protocols, Cryptography APIs, and secure MERN stacks.</span>
                     </div>
                   </div>
                 </div>
 
-                <h3>Key Metrics</h3>
-                <div className="ab-stats-polished">
+                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px', marginTop: '14px' }}>Technical Diagnostics</h3>
+                <div className="ab-stats-polished" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
                   {STATS.map((s, idx) => (
-                    <div key={idx} className="stat-card">
-                      <div className="stat-value">
+                    <div key={idx} className="stat-card" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+                      <div className="stat-value" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#fff' }}>
                         <Counter value={s.value} suffix={s.suffix} />
                       </div>
-                      <div className="stat-label">{s.label}</div>
+                      <div className="stat-label" style={{ fontSize: '0.62rem', color: 'var(--text-m)', marginTop: '2px' }}>{s.label}</div>
                     </div>
                   ))}
                 </div>
@@ -139,17 +155,19 @@ export default function AboutApp({ openApp }) {
 
             {activeTab === 'education' && (
               <div className="tab-pane animate-fade-in">
-                <h3>Academic Background</h3>
-                <div className="timeline-container">
+                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '12px' }}>Academic Timeline</h3>
+                <div className="timeline-container" style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   {EDUCATION.map((edu, idx) => (
-                    <div key={idx} className="timeline-item">
-                      <div className="timeline-badge">🎓</div>
-                      <div className="timeline-content">
-                        <span className="timeline-year">{edu.year}</span>
-                        <h4>{edu.degree}</h4>
-                        <h5>{edu.institution}</h5>
-                        {edu.specialization && <div className="timeline-spec">{edu.specialization}</div>}
-                        <p>{edu.details}</p>
+                    <div key={idx} className="timeline-item" style={{ display: 'flex', gap: '12px', borderLeft: '2px solid var(--brd)', paddingLeft: '14px', position: 'relative' }}>
+                      <div style={{ position: 'absolute', left: '-6px', top: '2px', width: '10px', height: '10px', borderRadius: '50%', background: 'var(--accent-blue)', border: '2px solid var(--bg-win)' }} />
+                      <div className="timeline-content" style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span className="timeline-year" style={{ fontSize: '0.75rem', fontWeight: 'bold', color: 'var(--text-m)' }}>{edu.year}</span>
+                        <h4 style={{ fontSize: '0.88rem', fontWeight: 'bold', color: '#fff', margin: '2px 0 1px' }}>{edu.degree}</h4>
+                        <h5 style={{ fontSize: '0.8rem', color: 'var(--text-d)', fontWeight: 'normal', margin: 0 }}>{edu.institution}</h5>
+                        {edu.specialization && (
+                          <div className="timeline-spec" style={{ alignSelf: 'flex-start' }}>{edu.specialization}</div>
+                        )}
+                        <p style={{ fontSize: '0.78rem', color: 'var(--text-d)', margin: '4px 0 0', lineHeight: '1.5' }}>{edu.details}</p>
                       </div>
                     </div>
                   ))}
@@ -159,37 +177,37 @@ export default function AboutApp({ openApp }) {
 
             {activeTab === 'credentials' && (
               <div className="tab-pane animate-fade-in">
-                <h3>Industry Credentials</h3>
-                <p className="creds-intro">Verified credentials demonstrating professional competency in software development and active cybersecurity practices.</p>
+                <h3 style={{ fontSize: '0.95rem', color: '#fff', marginBottom: '8px' }}>Professional Accreditations</h3>
+                <p className="creds-intro" style={{ fontSize: '0.8rem', color: 'var(--text-d)', marginBottom: '12px' }}>Verified credentials proving foundational competence in secure computing, networking diagnostics, and systems defense.</p>
                 
-                <div className="cert-cards-grid">
-                  <div className="cert-card-polished">
-                    <div className="cert-icon">🛡️</div>
-                    <div className="cert-details">
-                      <h4>Certified Ethical Hacker (CEH)</h4>
-                      <p>EC-Council professional cybersecurity training & assessment</p>
-                      <a href="https://drive.google.com/file/d/1M5bAEPY4Lrt_dl1njPtj_6VnZZFGbw2v/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn">
+                <div className="cert-cards-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  <div className="cert-card-polished" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--brd)', borderRadius: '10px', padding: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <div className="cert-icon" style={{ fontSize: '1.8rem' }}>🛡️</div>
+                    <div className="cert-details" style={{ display: 'flex', flexDirection: 'column' }}>
+                      <h4 style={{ fontSize: '0.82rem', color: '#fff', margin: '0 0 2px' }}>Certified Ethical Hacker (CEH)</h4>
+                      <p style={{ fontSize: '0.7rem', color: 'var(--text-d)', margin: '0 0 6px' }}>EC-Council Professional Certification</p>
+                      <a href="https://drive.google.com/file/d/1M5bAEPY4Lrt_dl1njPtj_6VnZZFGbw2v/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="cert-btn" style={{ alignSelf: 'flex-start', fontSize: '0.7rem', color: 'var(--accent-blue)', textDecoration: 'none', fontWeight: 'bold' }}>
                         Verify Credential ↗
                       </a>
                     </div>
                   </div>
 
-                  <div className="cert-card-polished">
-                    <div className="cert-icon">💻</div>
-                    <div className="cert-details">
-                      <h4>Career Essentials in Cybersecurity</h4>
-                      <p>Professional accreditation by Microsoft and LinkedIn</p>
-                      <span className="cert-btn-static">
-                        Verified on Resume
+                  <div className="cert-card-polished" style={{ background: 'rgba(255,255,255,0.01)', border: '1px solid var(--brd)', borderRadius: '10px', padding: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+                    <div className="cert-icon" style={{ fontSize: '1.8rem' }}>💻</div>
+                    <div className="cert-details" style={{ display: 'flex', flexDirection: 'column' }}>
+                      <h4 style={{ fontSize: '0.82rem', color: '#fff', margin: '0 0 2px' }}>Cybersecurity Career Essentials</h4>
+                      <p style={{ fontSize: '0.7rem', color: 'var(--text-d)', margin: '0 0 6px' }}>Microsoft & LinkedIn Joint Professional</p>
+                      <span className="cert-btn-static" style={{ alignSelf: 'flex-start', fontSize: '0.7rem', color: '#10b981', fontWeight: 'bold' }}>
+                        ✓ Verified on Resume
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="cert-cv-banner">
-                  <span>Looking for complete background and credentials?</span>
-                  <a href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="btn small primary">
-                    Download Full CV/Resume (PDF)
+                <div className="cert-cv-banner" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--brd)', borderRadius: '10px', padding: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-d)' }}>Need a fully verified, deep background?</span>
+                  <a href="https://drive.google.com/file/d/1EMgY5_nwdWGzjsufn6ma5Z-YIo-m3hZW/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="btn small primary" style={{ fontSize: '0.72rem', padding: '6px 10px' }}>
+                    Download CV (PDF)
                   </a>
                 </div>
               </div>
