@@ -40,8 +40,8 @@ export default function AboutApp({ openApp }) {
     "Authentication successful [Level 3 - Root].",
     "Loading cybersecurity sandbox environment...",
     "✓ Firewall rules armed (Honeypots active)",
-    "Verifying EC-Council CEH accreditation...",
-    "✓ CEH Credentials Verified [ACTIVE]",
+    "Verifying CEH & AZ-900 credentials...",
+    "✓ CEH & AZ-900 Credentials Active [Root]",
     "Running network state audit: 0 active threats."
   ];
 
@@ -255,11 +255,11 @@ export default function AboutApp({ openApp }) {
                 <div className="cert-card-polished Microsoft-glow-border">
                   <div className="cert-glow-overlay"></div>
                   <div className="cert-top-row">
-                    <span className="cert-icon">💻</span>
+                    <span className="cert-icon">☁️</span>
                     <span className="cert-status-tag status-verified">VERIFIED</span>
                   </div>
-                  <h4>Career Essentials in Cybersecurity</h4>
-                  <p>Certified by Microsoft & LinkedIn. Validates knowledge in foundational defensive posture, infrastructure defense, and privacy-first configurations.</p>
+                  <h4>Microsoft Certified: Azure Fundamentals (AZ-900)</h4>
+                  <p>Certified by Microsoft. Validates knowledge of cloud architecture models, fundamental Azure core cloud resources, management tools, and secure identity protection governance.</p>
                   <span className="cert-btn-static">
                     ✓ Verified on Resume
                   </span>

@@ -135,11 +135,11 @@ export default function MobilePortfolio() {
             <div className="mp-cert-grid">
               <div className="mp-cert-card">
                 <span className="mp-cert-icon">🛡️</span>
-                <span className="mp-cert-name">Google Cybersecurity Professional Certificate</span>
+                <span className="mp-cert-name">Certified Ethical Hacker (CEH)</span>
               </div>
               <div className="mp-cert-card">
-                <span className="mp-cert-icon">🐍</span>
-                <span className="mp-cert-name">Python Certification</span>
+                <span className="mp-cert-icon">☁️</span>
+                <span className="mp-cert-name">Microsoft Certified: Azure Fundamentals (AZ-900)</span>
               </div>
             </div>
           </section>
